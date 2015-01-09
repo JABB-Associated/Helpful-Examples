@@ -11,11 +11,11 @@ vel=new PVector(random(-20,20), random(-20,20), 50);
     loc.add(vel);
     
    translate(loc.x, loc.y, loc.z);
-    fill(0,0,0,200);
+    fill(255,255,0,200);
 box(sz*2/sqrt(3));
  fill(0,255,255,65);
  sphere(sz);
- fill(0,0,0,200);
+ fill(255,255,0,200);
 box(sz*2/sqrt(3));
 translate(-1*loc.x, -1*loc.y, -1*loc.z);
 

@@ -1,7 +1,7 @@
 ArrayList <Laser> lasers= new ArrayList<Laser>();
 ArrayList <Eship> eships= new ArrayList<Eship>();
 int fc=0;
-int fc1=0;
+int fc1=-20;
 Crosshairs ch= new Crosshairs();
 void setup() {
   size(displayWidth, displayHeight, P3D);  
@@ -9,15 +9,7 @@ void setup() {
 }
 void draw() {
   background(0);
-  if (keyPressed) {
-    if (key=='o' && frameCount-fc1>20) {
-      lasers.add(new Laser(1));
-      lasers.add(new Laser(2));
-      lasers.add(new Laser(3));
-      lasers.add(new Laser(4));
-      fc1=frameCount;
-    }
-  }
+
   if (frameCount-fc>10) {
     eships.add(new Eship());
     fc=frameCount;
@@ -30,11 +22,25 @@ void draw() {
     }
   }
   ch.make();
-  for ( int i=lasers.size ()-1; i>1; i--) {
-    Laser mylase=lasers.get(i);
+  
+  for ( int j=lasers.size()-1; j>1; j--) {
+    Laser mylase=lasers.get(j);
     mylase.make();
+    if(frameCount-mylase.create>360){
+    lasers.remove(mylase);}
   }
 }
 
 
-
+void keyPressed(){
+  
+ if (keyPressed) {
+    if (key=='o' && frameCount-fc1>20) {
+      lasers.add(new Laser(1));
+      lasers.add(new Laser(2));
+      lasers.add(new Laser(3));
+      lasers.add(new Laser(4));
+      fc1=frameCount;
+    }
+  }
+}

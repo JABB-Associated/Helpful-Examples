@@ -10,6 +10,7 @@ class Crosshairs{
   noFill();
   ellipse(width/2, height/2, 30,30);
  noStroke(); 
+
  }
   
 }

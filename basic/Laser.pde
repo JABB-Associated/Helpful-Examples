@@ -7,19 +7,19 @@ float create;
 
 if(lasernum==1){
  loc = new PVector(width, height, height/(2*tan(PI/6)));
- vel = new PVector(-1*width/720, -1*height/720,-400/360); 
+ vel = new PVector(-1*width/120, -1*height/120,-height/(120*tan(PI/6))); 
   ploc= new PVector(loc.x+12, loc.y+12, loc.z+12);}
 if(lasernum==2){
  loc = new PVector(0, height, height/(2*tan(PI/6)));
- vel = new PVector(width/720, -1*height/720,-400/360);
+ vel = new PVector(width/120, -1*height/120,-height/(120*tan(PI/6)));
  ploc= new PVector(loc.x-12, loc.y+12, loc.z+12); }
 if(lasernum==3){
  loc = new PVector(0, 0, height/(2*tan(PI/6)));
- vel = new PVector(width/720, height/720,-400/360); 
+ vel = new PVector(width/120, height/120,-height/(120*tan(PI/6))); 
   ploc= new PVector(loc.x-12, loc.y-12, loc.z+12);}
 if(lasernum==4){
  loc = new PVector(width, 0, height/(2*tan(PI/6)));
- vel = new PVector(-1*width/720, height/720,-400/360);
+ vel = new PVector(-1*width/120, height/120,-height/(120*tan(PI/6)));
  ploc= new PVector(loc.x+12, loc.y-12, loc.z+12); }
 
 create=frameCount;

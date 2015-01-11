@@ -26,7 +26,7 @@ void draw() {
   for ( int j=lasers.size()-1; j>1; j--) {
     Laser mylase=lasers.get(j);
     mylase.make();
-    if(frameCount-mylase.create>360){
+    if(frameCount-mylase.create>63){
     lasers.remove(mylase);}
   }
 }
@@ -35,7 +35,7 @@ void draw() {
 void keyPressed(){
   
  if (keyPressed) {
-    if (key=='o' && frameCount-fc1>20) {
+    if (key=='o' && frameCount-fc1>10) {
       lasers.add(new Laser(1));
       lasers.add(new Laser(2));
       lasers.add(new Laser(3));

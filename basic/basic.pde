@@ -20,6 +20,7 @@ void draw() {
   background(0);
   fill(0, 255, 0);
   noStroke();
+  textSize(30);
   text(score, 100, 100);
  
   update();
@@ -50,9 +51,9 @@ void draw() {
       eships.remove(myship);
      
     }
-    if(myship.loc.z>=6*height/(2*tan(PI/6)) ){
+    if(myship.loc.z>=7*height/(2*tan(PI/6)) ){
     myship.vel.z=-abs(myship.vel.z);}
-    if(myship.loc.z<=-6*height/(2*tan(PI/6))){
+    if(myship.loc.z<=-7*height/(2*tan(PI/6))){
     myship.vel.z=abs(myship.vel.z);}
   }
   for ( int j=lasers.size ()-1; j>1; j--) {

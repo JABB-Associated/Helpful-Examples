@@ -20,6 +20,7 @@ void draw() {
   background(0);
   fill(0, 255, 0);
   noStroke();
+  textSize(30);
   text(score, 100, 100);
  
   update();

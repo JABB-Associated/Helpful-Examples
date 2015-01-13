@@ -11,8 +11,10 @@ int rotatex;
 int rotatey;
 boolean keys[]= new boolean[255];
 Crosshairs ch= new Crosshairs();
+PImage cockpit;
 void setup() {
-  size(displayWidth, displayHeight, P3D);  
+  cockpit = loadImage("maxresdefault.png");
+  size(cockpit.width, cockpit.height, P3D);  
   noStroke();
 }
 void draw() {
@@ -67,7 +69,7 @@ void draw() {
 
       ch.make();
   }
- 
+ image(cockpit,0,0);
 }
 
 

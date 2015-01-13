@@ -13,6 +13,7 @@ void draw () {
     Start alpha = START.get(i); 
     alpha.display();
     alpha.button();
+    alpha.title();
 
     if (START.size ()> 50) {
       START.remove(i);

@@ -2,6 +2,7 @@ class Start {
   PVector loc;
   float sz, fc;
   int rectX, rectY, W, H;
+  PImage title;
 
   Start () {
     loc =  new PVector(random (0, width), random (0, height));
@@ -11,6 +12,7 @@ class Start {
     H = 75;
     rectX = width/2 - W/2;
     rectY = 2*height/3;
+    title = loadImage ("TITLE.png");
   }
 
   void display () {
@@ -29,7 +31,12 @@ class Start {
 
     rect (rectX, rectY, W, H);
     fill (0);
-    text ("START", width/2, H/2 + rectY);
+    text ("START", width/2, 2*H/5 + rectY);
   }
+  
+  void title () {
+    imageMode(CENTER);
+    image (title, width/2, height/3);
+  } 
 }
 

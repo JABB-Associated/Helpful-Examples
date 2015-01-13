@@ -1,3 +1,9 @@
+/////////////////////////////////////////////////
+//            WOOKIES X-WING ADVENTURES        //
+//                 JABB-Associated             //
+//            Josh, Adel, Bruno, and Ben       //
+/////////////////////////////////////////////////
+
 ArrayList <Laser> lasers= new ArrayList<Laser>();
 ArrayList <Eship> eships= new ArrayList<Eship>();
 int fc=0;

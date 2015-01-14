@@ -2,7 +2,7 @@ class Start {
   PVector loc;
   float sz, fc;
   int rectX, rectY, W, H;
-  PImage title;
+  PImage title, starwars;
 
   Start () {
     loc =  new PVector(random (0, width), random (0, height));
@@ -13,6 +13,7 @@ class Start {
     rectX = width/2 - W/2;
     rectY = 2*height/3;
     title = loadImage ("TITLE.png");
+    starwars = loadImage ("STAR WARS.png");
   }
 
   void display () {
@@ -36,7 +37,8 @@ class Start {
   
   void title () {
     imageMode(CENTER);
-    image (title, width/2, height/3);
+    image (starwars, width/2, height/4);
+    image (title, width/2, 2*height/5);
   } 
 }
 

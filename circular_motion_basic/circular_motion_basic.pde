@@ -61,7 +61,7 @@ void draw() {
     mylase.make();
 
 
-    if (frameCount-mylase.create>62 || mylase.death) {
+    if (frameCount-mylase.create>60 || mylase.death) {
       lasers.remove(mylase);
     }
 

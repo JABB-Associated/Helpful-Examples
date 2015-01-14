@@ -19,8 +19,7 @@ class Start {
     rectX = width/2 - W/2;
     rectY = 2*height/3;
     //load images displaying titles
-    title = loadImage ("TITLE.png");
-    starwars = loadImage ("STAR WARS.png");
+    title = loadImage ("MergedTitle.png");
   }
 
   void display () {
@@ -49,8 +48,7 @@ class Start {
   void title () {
     //display images for titles
     imageMode(CENTER);
-    image (starwars, width/2, height/4);
-    image (title, width/2, 2*height/5);
+    image (title, width/2, height/2);
   } 
 }
 

@@ -31,7 +31,8 @@ translate(-1*loc.x, -1*loc.y, -1*loc.z);
 fill(0);
 if(shield<=0){
 dead=true;
-score++;}
+score++;
+addmiss=false;}
 }
 
 }

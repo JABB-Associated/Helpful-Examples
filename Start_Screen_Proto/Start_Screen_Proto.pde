@@ -39,6 +39,6 @@ void draw () {
     if (sparkles.disappear()) {
       Shimmer.remove(i);
     }
-  }
+  } 
 }
 

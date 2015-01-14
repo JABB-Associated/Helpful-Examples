@@ -6,7 +6,7 @@ class Start {
   //initialize variables for location and size of start button
   int rectX, rectY, W, H;
   //initialize images
-  PImage title, starwars;
+  PImage title;
 
   Start () {
     //set random location for the stars

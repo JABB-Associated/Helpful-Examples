@@ -1,6 +1,8 @@
 import ddf.minim.*;
 AudioPlayer DuelofFates;
 Minim minim;
+
+PShape TieFighter;
 ArrayList <Laser> lasers= new ArrayList<Laser>();
 ArrayList <Eship> eships= new ArrayList<Eship>();
 ArrayList <Missile> missiles = new ArrayList<Missile>();
@@ -23,6 +25,7 @@ void setup() {
   noStroke();
   minim= new Minim(this);
   DuelofFates=minim.loadFile("Duel of Fates.mp3", 5048);
+  TieFighter = loadShape("Tie Fighter.obj");
 }
 void draw() {
   frameRate(60);

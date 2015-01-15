@@ -10,19 +10,21 @@ class Missile {
     fc=frameCount;
   }
   void make() {
-    if(frameCount-fc<80)
-    {loc.add(vel);}
+    if (frameCount-fc<80)
+    {
+      loc.add(vel);
+    }
     println("displaying missile");
-  translate(loc.x, loc.y, loc.z);
-    fill(0, 255,0 );
+    translate(loc.x, loc.y, loc.z);
+    fill(0, 255, 0 );
     sphere(sz);
 
-  translate(-1*loc.x, -1*loc.y, -1*loc.z);
+    translate(-1*loc.x, -1*loc.y, -1*loc.z);
   }
   void exploding() {
-    if(sz<=250){
-      
-    sz+=10;
+    if (sz<=250) {
+
+      sz+=10;
     }
   }
   void hits(Eship tempship) {

@@ -23,8 +23,6 @@ void setup() {
   noStroke();
   minim= new Minim(this);
   DuelofFates=minim.loadFile("Duel of Fates.mp3", 5048);
-  
-  
 }
 void draw() {
   frameRate(60);
@@ -34,8 +32,8 @@ void draw() {
   noStroke();
   textSize(30);
   text(score, 100, 100);
-  text(missilecount,width-300, 100);
-  
+  text(missilecount, width-300, 100);
+
   if (score%5==0 && score!=0 && addmiss==false) {
     missilecount+=score/5;
     addmiss=true;
@@ -45,62 +43,65 @@ void draw() {
   rotateX(rotatey);
   rotateY(rotatex);
 
-  if ((frameCount-fc>20 || shipoff) && eships.size()<=30) {
+  if ((frameCount-fc>20 || shipoff) && eships.size()<=15) {
     eships.add(new Eship());
     fc=frameCount;
     shipoff=false;
   }
   //ship-laser detection loop
-  for (int i=eships.size ()-1; i>1; i--) {
+  for (int i=eships.size ()-1; i>=0; i--) {
     Eship myship=eships.get(i);
-    for (int j=lasers.size ()-1; j>1; j--) {
+    for (int j=lasers.size ()-1; j>=0; j--) {
       Laser mylase=lasers.get(j);
       if (dist(myship.loc.x, myship.loc.y, myship.loc.z, mylase.loc.x, mylase.loc.y, mylase.loc.z)<=myship.sz) {
         mylase.hits(myship);
       }
     }
-    for (int k= missiles.size ()-1; k>1; k--) {
+    for (int k= missiles.size ()-1; k>=0; k--) {
       Missile mymiss = missiles.get(k);
+      fill(0, 255, 0);
+      println(mymiss.loc.x + "," + mymiss.loc.y + "," + mymiss.loc.z);
       if (dist(mymiss.loc.x, mymiss.loc.y, mymiss.loc.z, myship.loc.x, myship.loc.y, myship.loc.z)<=myship.sz + mymiss.sz) {
         mymiss.hits(myship);
+        mymiss.exploding=true;
       }
     }
   }
 
-    for (int i=eships.size ()-1; i>1; i--) {
-      Eship myship=eships.get(i);
-      myship.make();
-      if ( myship.dead) {
-        eships.remove(myship);
-      }
-      if (myship.loc.z>=6*height/(2*tan(PI/6)) ) {
-        myship.vel.z=-abs(myship.vel.z);
-      }
-      if (myship.loc.z<=-6*height/(2*tan(PI/6))) {
-        myship.vel.z=abs(myship.vel.z);
-      }
+  for (int i=eships.size ()-1; i>=0; i--) {
+    Eship myship=eships.get(i);
+    myship.make();
+    if ( myship.dead) {
+      eships.remove(myship);
     }
-    for ( int j=lasers.size ()-1; j>1; j--) {
-      Laser mylase=lasers.get(j);
-      mylase.make();
-
-
-      if (frameCount-mylase.create>60 || mylase.death) {
-        lasers.remove(mylase);
-      }
-
-      ch.make();
+    if (myship.loc.z>=6*height/(2*tan(PI/6)) ) {
+      myship.vel.z=-abs(myship.vel.z);
     }
-    for (int k=missiles.size ()-1; k>1; k--) {
-      Missile mymiss=missiles.get(k);
-      mymiss.make();
+    if (myship.loc.z<=-6*height/(2*tan(PI/6))) {
+      myship.vel.z=abs(myship.vel.z);
+    }
+  }
+  for ( int j=lasers.size ()-1; j>1; j--) {
+    Laser mylase=lasers.get(j);
+    mylase.make();
+
+
+    if (frameCount-mylase.create>60 || mylase.death) {
+      lasers.remove(mylase);
+    }
+
+    ch.make();
+  }
+  for (int k=missiles.size ()-1; k>=0; k--) {
+    Missile mymiss=missiles.get(k);
+    mymiss.make();
+    if (frameCount-mymiss.fc>80 || mymiss.exploding==true) {
+      mymiss.exploding();
       if (frameCount-mymiss.fc>120) {
-        mymiss.exploding();
-        if(frameCount-mymiss.fc>700){
-        missiles.remove(mymiss);}
+        missiles.remove(mymiss);
       }
     }
-  
+  }
 }
 
 
@@ -118,8 +119,9 @@ void keyPressed() {
     if ((key=='I' || key=='i') && frameCount-fc2>=50 && missilecount>=1) {
       missiles.add(new Missile());
       fc2=frameCount;
-      if(missilecount>0){
-      missilecount--;}
+      if (missilecount>0) {
+        missilecount--;
+      }
     }
     if (key!=CODED) {
       keys[key]=true;

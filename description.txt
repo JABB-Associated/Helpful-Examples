@@ -1,0 +1,11 @@
+You are a wookie, piloting a ship. 
+You are fighting Darth Bruno and the Empire of Bruyesia. 
+As your fly your first person ship through the galaxy, you face several enemy waves. 
+Your view out the cockpit of your ship is displayed on the screen, as you listen to the theme music of Star Wars. 
+Control the aim of your weapons to shoot down your enemies. These weapons are upgraded as you progress through the game. 
+You can control your ship using the keyboard, firing and hearing the awesome laser beam sounds. 
+In the first wave, asteroids appear in the background of the screen, and increase in size as they move closer to your spaceship. 
+If you do not shoot them in time, they will crash into your ship. 
+In later waves, enemies appear in the background of the screen, and increase in size as they move closer to you. 
+However, these enemies shoot at you. 
+In the final waves, the asteroids and enemies are combined as they increase in speed and difficulty. 

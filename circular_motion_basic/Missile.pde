@@ -6,7 +6,7 @@ class Missile {
   Missile() {
 
     loc = new PVector(width/2-movex, 4*height/5-movey, height/( tan(PI/6))-2*movez);
-    vel = new PVector(0, 0, 20);
+    vel = new PVector(0, 0, -20);
     fc=frameCount;
   }
   void make() {

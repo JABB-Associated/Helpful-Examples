@@ -1,3 +1,6 @@
+import ddf.minim.*;
+AudioPlayer DuelofFates;
+Minim minim;
 ArrayList <Laser> lasers= new ArrayList<Laser>();
 ArrayList <Eship> eships= new ArrayList<Eship>();
 ArrayList <Missile> missiles = new ArrayList<Missile>();
@@ -18,15 +21,21 @@ boolean addmiss=true;
 void setup() {
   size(displayWidth, displayHeight, P3D);  
   noStroke();
+  minim= new Minim(this);
+  DuelofFates=minim.loadFile("Duel of Fates.mp3", 5048);
+  
+  
 }
 void draw() {
   frameRate(60);
   background(0);
+  DuelofFates.play();
   fill(0, 255, 0);
   noStroke();
   textSize(30);
   text(score, 100, 100);
   text(missilecount,width-300, 100);
+  
   if (score%5==0 && score!=0 && addmiss==false) {
     missilecount+=score/5;
     addmiss=true;
@@ -109,8 +118,8 @@ void keyPressed() {
     if ((key=='I' || key=='i') && frameCount-fc2>=50 && missilecount>=1) {
       missiles.add(new Missile());
       fc2=frameCount;
-      if(i>0){
-      i--;}
+      if(missilecount>0){
+      missilecount--;}
     }
     if (key!=CODED) {
       keys[key]=true;

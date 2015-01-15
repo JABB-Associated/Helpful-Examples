@@ -19,7 +19,7 @@ class Start {
     rectX = width/2 - W/2;
     rectY = 2*height/3;
     //load images displaying titles
-    title = loadImage ("MergedTitle.png");
+    title = loadImage ("MergedTitleLQ.png");
   }
 
   void display () {

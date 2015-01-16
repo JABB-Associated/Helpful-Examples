@@ -1,8 +1,10 @@
 import ddf.minim.*;
 AudioPlayer DuelofFates;
+AudioPlayer Blaster;
 Minim minim;
 
 PShape TieFighter;
+PImage cockpit;
 ArrayList <Laser> lasers= new ArrayList<Laser>();
 ArrayList <Eship> eships= new ArrayList<Eship>();
 ArrayList <Missile> missiles = new ArrayList<Missile>();
@@ -20,14 +22,19 @@ int rotatey;
 boolean keys[]= new boolean[255];
 Crosshairs ch= new Crosshairs();
 boolean addmiss=true;
-void setup() {
-  size(displayWidth, displayHeight, P3D);  
+
+void setup() { 
   noStroke();
-  minim= new Minim(this);
-  DuelofFates=minim.loadFile("Duel of Fates.mp3", 5048);
+  minim = new Minim(this);
+  DuelofFates = minim.loadFile("Duel of Fates.mp3", 5048);
+  Blaster = minim.loadFile("X Wing Sound.mp3", 5048);
   TieFighter = loadShape("Tie Fighter.obj");
+  cockpit = loadImage("maxresdefault.png");
+  size(cockpit.width, cockpit.height, P3D);
 }
+
 void draw() {
+
   frameRate(60);
   background(0);
   DuelofFates.play();
@@ -41,7 +48,9 @@ void draw() {
     missilecount+=score/5;
     addmiss=true;
   }
+
   update();
+
   translate(movex, movey, movez);
   rotateX(rotatey);
   rotateY(rotatex);
@@ -51,19 +60,23 @@ void draw() {
     fc=frameCount;
     shipoff=false;
   }
+
   //ship-laser detection loop
   for (int i=eships.size ()-1; i>=0; i--) {
     Eship myship=eships.get(i);
+
     for (int j=lasers.size ()-1; j>=0; j--) {
       Laser mylase=lasers.get(j);
+
       if (dist(myship.loc.x, myship.loc.y, myship.loc.z, mylase.loc.x, mylase.loc.y, mylase.loc.z)<=myship.sz) {
         mylase.hits(myship);
       }
     }
+
     for (int k= missiles.size ()-1; k>=0; k--) {
       Missile mymiss = missiles.get(k);
       fill(0, 255, 0);
-      println(mymiss.loc.x + "," + mymiss.loc.y + "," + mymiss.loc.z);
+
       if (dist(mymiss.loc.x, mymiss.loc.y, mymiss.loc.z, myship.loc.x, myship.loc.y, myship.loc.z)<=myship.sz + mymiss.sz) {
         mymiss.hits(myship);
         mymiss.exploding=true;
@@ -74,32 +87,37 @@ void draw() {
   for (int i=eships.size ()-1; i>=0; i--) {
     Eship myship=eships.get(i);
     myship.make();
+
     if ( myship.dead) {
       eships.remove(myship);
     }
+
     if (myship.loc.z>=6*height/(2*tan(PI/6)) ) {
       myship.vel.z=-abs(myship.vel.z);
     }
+
     if (myship.loc.z<=-6*height/(2*tan(PI/6))) {
       myship.vel.z=abs(myship.vel.z);
     }
   }
+
   for ( int j=lasers.size ()-1; j>1; j--) {
     Laser mylase=lasers.get(j);
     mylase.make();
 
-
     if (frameCount-mylase.create>60 || mylase.death) {
       lasers.remove(mylase);
     }
-
     ch.make();
   }
+
   for (int k=missiles.size ()-1; k>=0; k--) {
     Missile mymiss=missiles.get(k);
     mymiss.make();
+
     if (frameCount-mymiss.fc>80 || mymiss.exploding==true) {
       mymiss.exploding();
+
       if (frameCount-mymiss.fc>120) {
         missiles.remove(mymiss);
       }
@@ -107,10 +125,7 @@ void draw() {
   }
 }
 
-
-
 void keyPressed() {
-
   if (keyPressed) {
     if ((key=='O' || key=='o') && frameCount-fc1>=10) {
       lasers.add(new Laser(1));
@@ -119,6 +134,7 @@ void keyPressed() {
       lasers.add(new Laser(4));
       fc1=frameCount;
     }
+
     if ((key=='I' || key=='i') && frameCount-fc2>=50 && missilecount>=1) {
       missiles.add(new Missile());
       fc2=frameCount;
@@ -126,18 +142,22 @@ void keyPressed() {
         missilecount--;
       }
     }
+
     if (key!=CODED) {
       keys[key]=true;
     }
+
     if (key==CODED) {
       keys[keyCode]=true;
     }
   }
 }
+
 void keyReleased() {
   if (key!=CODED) {
     keys[key]=false;
   }
+
   if (key == CODED) {
     keys[keyCode]=false;
   }
@@ -149,32 +169,40 @@ void update() {
   if (keys['w'] || keys['W']) {
     movey+=10;
   }
+
   if (keys['s'] || keys['S']) {
     movey-=10;
   }
+
   if (keys['d'] || keys['D']) {
     movex-=10;
   }
+
   if (keys['a'] || keys['A']) {
     movex+=10;
   }
+
   if (keys['z'] || keys['Z']) {
     movez+=10;
   }
+
   if (keys['x'] || keys['X']) {
     movez-=10;
   }
+
   if (keys[UP]) {
     rotatey+=PI*50/180;
   }
+
   if (keys[DOWN]) {
     rotatey-=PI*50/180;
   }
+
   if (keys[LEFT]) {
     rotatex-=PI*50/180;
   }
+
   if (keys[RIGHT]) {
     rotatex+=PI*50/180;
   }
 }
-

@@ -128,6 +128,8 @@ void draw() {
 void keyPressed() {
   if (keyPressed) {
     if ((key=='O' || key=='o') && frameCount-fc1>=10) {
+      Blaster.rewind();
+      Blaster.play();
       lasers.add(new Laser(1));
       lasers.add(new Laser(2));
       lasers.add(new Laser(3));

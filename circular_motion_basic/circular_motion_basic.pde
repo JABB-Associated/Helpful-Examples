@@ -4,13 +4,18 @@ AudioPlayer DuelofFates;
 Minim minim;
 
 int health = 1000;
+PShape Boss1;
+PShape Destroyer;
+PShape Tiebomber;
 PShape Tiefighter;
 //PImage cockpit;
+ArrayList<Elaser> elasers = new ArrayList<Elaser>();
+ArrayList <Boss> bosses= new ArrayList<Boss>();
 ArrayList <Laser> lasers= new ArrayList<Laser>();
 ArrayList <Eship> eships= new ArrayList<Eship>();
 ArrayList <Missile> missiles = new ArrayList<Missile>();
 int missilecount=0;
-int fc=0;
+//float fc=0;
 float fc1=-20;
 float fc2=-50;
 int score=0;
@@ -22,8 +27,13 @@ int rotatex;
 int rotatey;
 boolean keys[]= new boolean[255];
 Crosshairs ch= new Crosshairs();
-boolean addmiss=true;
+boolean addmiss=true; //checks for duplicate missile addition
 float zfire = ( tan(PI/6)) ;
+int level=-1;
+boolean bosstime= false; 
+boolean bossadded = false;
+boolean wavetime= false;
+int pscore=0;
 
 void setup() { 
   noStroke();
@@ -31,12 +41,21 @@ void setup() {
   DuelofFates = minim.loadFile("Duel of Fates.mp3", 512);
   //Blaster = minim.loadFile("X Wing Sound.mp3", 5048);
   Tiefighter = loadShape("Tiefighter.obj");
+  Tiebomber = loadShape("Tie Super.obj");
+  Destroyer = loadShape("Imperial Class Destroyer.obj");
+  Boss1 = loadShape("tiefighterboss.obj");
   //cockpit = loadImage("maxresdefault.png");
   size(displayWidth, displayHeight, P3D);
 }
 
 void draw() {
-
+  if (mousePressed ) {
+    if (level<3) {
+      level++;
+    } else {
+      level=1;
+    }
+  }
   frameRate(60);
   background(0);
   DuelofFates.play();
@@ -44,13 +63,16 @@ void draw() {
   rect(50, 120, 20, -health/10); //health bar
   fill(0, 255, 0);
   rect(width-120, 120, 20, -20*(score%5)); //shows how close to getting missiles you are
-
+  if (bosstime) {
+    bosses.add( new Boss());
+    bossadded= true;
+  }
   noStroke();
   textSize(30);
   text(score, 150, 100); //display score
   text("M" + " " + missilecount, width-300, 100); // display number of missiles
   textSize(20);
-  text("Range:" + round(-3*height/((2*frameRate)*zfire)*frameRate) + "meters", width-225, height/2);
+  text("Range:" + -1*round(-3*height/((2*frameRate)*zfire)*frameRate) + "meters", width-225, height/2);
   textSize(30);
   //image(cockpit, 0,0);
   if (score%5==0 && score!=0 && addmiss==false) { //awards you with a missile if this is your first time reaching that multiple of 5 (score)
@@ -64,12 +86,24 @@ void draw() {
   rotateX(rotatey);
   rotateY(rotatex);
 
-  if ((frameCount-fc>20 || shipoff) && eships.size()<=15) {
+  if (level>0 && !bosstime) {
+    wavetime=true;
+  }
+  if (// (frameCount-fc>20 || shipoff) && eships.size()<=15) {
+  eships.size()+score-pscore <= 15) {
     eships.add(new Eship());
-    fc=frameCount;
-    shipoff=false;
+    // fc=frameCount;
+    //shipoff=false;
+  }
+  if (score-pscore >=15 && wavetime) {
+    bosstime=true;
+    wavetime = false;
   }
 
+  for (int i= bosses.size ()-1; i>=0; i--) {
+    Boss thisboss = bosses.get(i);
+    thisboss.make();
+  }
   //ship-laser detection loop
   for (int i=eships.size ()-1; i>=0; i--) {
     Eship myship=eships.get(i);
@@ -108,6 +142,10 @@ void draw() {
     if (myship.loc.z<=-6*height/(2*tan(PI/6))) {
       myship.vel.z=abs(myship.vel.z);
     }
+    if (frameCount-myship.firingtimer > 20) {
+      elasers.add( new Elaser(myship));
+      myship.firingtimer = frameCount;
+    }
   }
 
   for ( int j=lasers.size ()-1; j>1; j--) {
@@ -130,6 +168,13 @@ void draw() {
       if (frameCount-mymiss.fc>120) {
         missiles.remove(mymiss);
       }
+    }
+  }
+  for ( int i= elasers.size () - 1; i>=0; i--) {
+    Elaser elase = elasers.get(i);
+    elase.make();
+    if (dist(elase.loc.x, elase.loc.y, elase.loc.z, movex, movey, -movez) < 100) {
+      elase.hits();
     }
   }
   ch.make();
@@ -221,19 +266,19 @@ void update() {
   }
 
   if (keys[UP]) {
-    rotatey+=PI*50/180;
+    rotatey+=PI/6;
   }
 
   if (keys[DOWN]) {
-    rotatey-=PI*50/180;
+    rotatey-=PI/6;
   }
 
   if (keys[LEFT]) {
-    rotatex-=PI*50/180;
+    rotatex-=PI/6;
   }
 
   if (keys[RIGHT]) {
-    rotatex+=PI*30/180;
+    rotatex+=PI/6;
   }
 }
 

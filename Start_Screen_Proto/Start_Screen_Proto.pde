@@ -6,13 +6,14 @@ ArrayList<MouseEffect> Shimmer = new ArrayList<MouseEffect>();
 void setup () {
   //set to fullscreen
   size (displayWidth, displayHeight);
+  START.add (new Start ());
 }
 
 void draw () {
   //create black background
-  background (0);
+  background (0); 
   //add start button
-  START.add (new Start ());
+  
 
 //create start button, title, and background stars
   for (int i = 0; i < START.size (); i++) { 
@@ -26,7 +27,7 @@ void draw () {
     if (START.size ()> 50) {
       START.remove(i);
     }
-  }
+  }  
   //create the mouse effect
   for (int i = 0; i < 15; i++) {
     Shimmer.add (new MouseEffect ());

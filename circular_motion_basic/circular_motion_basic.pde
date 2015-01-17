@@ -23,13 +23,13 @@ int rotatey;
 boolean keys[]= new boolean[255];
 Crosshairs ch= new Crosshairs();
 boolean addmiss=true;
-float zfire = -3*height/( tan(PI/6));
+float zfire = ( tan(PI/6)) ;
 
 void setup() { 
   noStroke();
   minim = new Minim(this);
   DuelofFates = minim.loadFile("Duel of Fates.mp3", 512);
- //Blaster = minim.loadFile("X Wing Sound.mp3", 5048);
+  //Blaster = minim.loadFile("X Wing Sound.mp3", 5048);
   Tiefighter = loadShape("Tiefighter.obj");
   //cockpit = loadImage("maxresdefault.png");
   size(displayWidth, displayHeight, P3D);
@@ -40,18 +40,21 @@ void draw() {
   frameRate(60);
   background(0);
   DuelofFates.play();
+  fill(0, 0, 255);
+  rect(50, 120, 20, -health/10); //health bar
   fill(0, 255, 0);
-  rect(50,120,20,-health/10);
-  fill(255,0,0);
-  rect(width-120, 120, 20, -20*(score%5));
-  fill(0,255,0);
+  rect(width-120, 120, 20, -20*(score%5)); //shows how close to getting missiles you are
+
   noStroke();
   textSize(30);
-  text(score, 150, 100);
-  text("M" + " " + missilecount, width-300, 100);
-//image(cockpit, 0,0);
-  if (score%5==0 && score!=0 && addmiss==false) {
-    missilecount++;
+  text(score, 150, 100); //display score
+  text("M" + " " + missilecount, width-300, 100); // display number of missiles
+  textSize(20);
+  text("Range:" + round(-3*height/((2*frameRate)*zfire)*frameRate) + "meters", width-225, height/2);
+  textSize(30);
+  //image(cockpit, 0,0);
+  if (score%5==0 && score!=0 && addmiss==false) { //awards you with a missile if this is your first time reaching that multiple of 5 (score)
+    missilecount+=2;
     addmiss=true;
   }
 
@@ -173,6 +176,24 @@ void keyReleased() {
 }
 
 void update() {
+  if ((keys['k'] || keys['K']) && zfire-tan(PI/6)<= 250) {
+    if (3*height/((2*frameRate)*zfire)*frameRate>500) {
+      zfire*=1.0157;
+    } else {
+      zfire*=1.09;
+    }
+  }
+  if ((keys['P'] || keys['p']) && zfire-tan(PI/6) >=.004) {
+    if (3*height/((2*frameRate)*zfire)*frameRate>500) {
+      zfire/=1.0157;
+    } else {
+      zfire/=1.09;
+    }
+  }
+
+  if (keys['l'] || keys['L']) {
+    zfire=tan(PI/6) ;
+  }
 
 
   if (keys['w'] || keys['W']) {
@@ -215,3 +236,4 @@ void update() {
     rotatex+=PI*30/180;
   }
 }
+

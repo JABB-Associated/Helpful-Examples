@@ -11,7 +11,8 @@ public class Eship {
   int amplitude=1000;
 
   Eship() {
-    xfactor=random(-TAU*500, TAU*500);
+    //xfactor=random(-TAU*500, TAU*500); //for circular
+    xfactor = random(1,100);
     ypos= random(-200, height);
     int sz=90;
     loc=new PVector(random(-200, width), ypos, -9000);
@@ -19,7 +20,10 @@ public class Eship {
   }
 
   void make() {
-    loc.set(width/2+width/2*sin((frameCount+xfactor)*TAU/360), ypos, -300*height/(120*tan(PI/6))*cos((frameCount+xfactor)*TAU/360));
+    float t=(frameCount+xfactor)/150;
+    //loc.set(width/2+width/2*sin((frameCount+xfactor)*TAU/360), ypos, -300*height/(120*tan(PI/6))*cos((frameCount+xfactor)*TAU/360)); //circular path
+    // loc.set(500*sin(t), ypos, -2300);    //for testing
+    loc.set(width/2+(1000*sin(t))* (exp(cos(t))-2*cos(4*t)-sin(pow((t/12),5))),ypos,  (1000*cos(t))* ((exp(cos(t)))-2*cos(4*t)-sin(pow((t/12),5)))); //random butterfly-like path
     translate(loc.x, loc.y, loc.z);
     fill(255, 255, 0, 200);
     scale(10,10,10);

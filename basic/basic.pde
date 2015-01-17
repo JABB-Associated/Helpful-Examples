@@ -10,6 +10,7 @@ int movez=0;
 int rotatex;
 int rotatey;
 boolean keys[]= new boolean[255];
+int level=0;
 Crosshairs ch= new Crosshairs();
 void setup() {
   size(displayWidth, displayHeight, P3D);  

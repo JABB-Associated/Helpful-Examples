@@ -1,0 +1,8 @@
+class Bweapon{
+ 
+ Bweapon(){
+  
+  
+ } 
+  
+}

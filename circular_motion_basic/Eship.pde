@@ -1,4 +1,4 @@
-class Eship {
+public class Eship {
 
   
   PVector loc, vel;
@@ -23,7 +23,7 @@ class Eship {
     translate(loc.x, loc.y, loc.z);
     fill(255, 255, 0, 200);
     scale(10,10,10);
-    shape(TieFighter);
+    shape(Tiefighter);
     scale(.1,.1,.1);
     if (shield==2) {
       fill(0, 255, 255, 65);

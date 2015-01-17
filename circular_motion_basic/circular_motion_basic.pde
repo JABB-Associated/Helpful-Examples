@@ -1,10 +1,11 @@
 import ddf.minim.*;
 AudioPlayer DuelofFates;
-AudioPlayer Blaster;
+//AudioPlayer Blaster;
 Minim minim;
 
-PShape TieFighter;
-PImage cockpit;
+int health = 1000;
+PShape Tiefighter;
+//PImage cockpit;
 ArrayList <Laser> lasers= new ArrayList<Laser>();
 ArrayList <Eship> eships= new ArrayList<Eship>();
 ArrayList <Missile> missiles = new ArrayList<Missile>();
@@ -22,15 +23,16 @@ int rotatey;
 boolean keys[]= new boolean[255];
 Crosshairs ch= new Crosshairs();
 boolean addmiss=true;
+float zfire = -3*height/( tan(PI/6));
 
 void setup() { 
   noStroke();
   minim = new Minim(this);
-  DuelofFates = minim.loadFile("Duel of Fates.mp3", 5048);
-  Blaster = minim.loadFile("X Wing Sound.mp3", 5048);
-  TieFighter = loadShape("Tie Fighter.obj");
-  cockpit = loadImage("maxresdefault.png");
-  size(cockpit.width, cockpit.height, P3D);
+  DuelofFates = minim.loadFile("Duel of Fates.mp3", 512);
+ //Blaster = minim.loadFile("X Wing Sound.mp3", 5048);
+  Tiefighter = loadShape("Tiefighter.obj");
+  //cockpit = loadImage("maxresdefault.png");
+  size(displayWidth, displayHeight, P3D);
 }
 
 void draw() {
@@ -39,13 +41,17 @@ void draw() {
   background(0);
   DuelofFates.play();
   fill(0, 255, 0);
+  rect(50,120,20,-health/10);
+  fill(255,0,0);
+  rect(width-120, 120, 20, -20*(score%5));
+  fill(0,255,0);
   noStroke();
   textSize(30);
-  text(score, 100, 100);
-  text(missilecount, width-300, 100);
-
+  text(score, 150, 100);
+  text("M" + " " + missilecount, width-300, 100);
+//image(cockpit, 0,0);
   if (score%5==0 && score!=0 && addmiss==false) {
-    missilecount+=score/5;
+    missilecount++;
     addmiss=true;
   }
 
@@ -105,7 +111,7 @@ void draw() {
     Laser mylase=lasers.get(j);
     mylase.make();
 
-    if (frameCount-mylase.create>60 || mylase.death) {
+    if (frameCount-mylase.create>(mylase.framerater) || mylase.death) {
       lasers.remove(mylase);
     }
     ch.make();
@@ -123,13 +129,14 @@ void draw() {
       }
     }
   }
+  ch.make();
 }
 
 void keyPressed() {
   if (keyPressed) {
     if ((key=='O' || key=='o') && frameCount-fc1>=10) {
-      Blaster.rewind();
-      Blaster.play();
+      //Blaster.rewind();
+      //Blaster.play();
       lasers.add(new Laser(1));
       lasers.add(new Laser(2));
       lasers.add(new Laser(3));
@@ -205,6 +212,6 @@ void update() {
   }
 
   if (keys[RIGHT]) {
-    rotatex+=PI*50/180;
+    rotatex+=PI*30/180;
   }
 }

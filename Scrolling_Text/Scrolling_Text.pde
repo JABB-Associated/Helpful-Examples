@@ -1,47 +1,50 @@
-//int x;
-int y [] = new int [9];
-int z [] = new int [9];
-//String intro [] = new String [8];
+int x;
+int y [] = new int [6];
+int z [] = new int [6];
 StringList starwarstext;
-void setup() {
-  size(displayWidth, displayHeight, P3D);    
-  textSize(50);
- // int x = 0;
-  for (int i=0; i<9; i++) {
-//    intro[i] = {"The empire had seized control of the galaxy. As", "systems fell, one after the other, the only hope", "was for a hero. You are this hero, not a human,", "but a Wookiee. You must fight back against", "Darth Bruno and the Empire of Bruyesia.", " ", "As you fly your ship through the galaxy, you must", "defeat your enemies."};
-    y[i] = -30*(9-i);
-   z[i] = 20*(9-i);
- }
-    starwarstext= new StringList();
 
-   starwarstext.append("The empire had seized control of the galaxy. As");
-   starwarstext.append("systems fell, one after the other, the only hope");
-  starwarstext.append( "was for a hero. You are this hero, not a human,");
- starwarstext.append( "but a Wookiee. You must fight back against");
-starwarstext.append( "Darth Bruno and the Empire of Bruyesia."); 
-starwarstext.append("As you fly your ship through the galaxy, you must");
-starwarstext.append("defeat your enemies.");
-starwarstext.append("Good luck, young Wookiee,");
-starwarstext.append("and may the Force be with you!");
+void setup() {
+
+  size(displayWidth, displayHeight, P3D);    
+  textSize(60);
+  textAlign (CENTER, CENTER);
+
+  x = width/2;
+
+  for (int i=0; i<6; i++) {
+    y[i] = 3*height/2 + 70*i;
+    z[i] = -5*i;
+  }
+
+  starwarstext= new StringList();
+
+  starwarstext.append("The empire had seized control of the galaxy. As");
+  starwarstext.append("systems fell, one after the other, the only hope was");
+  starwarstext.append("for a hero. You are this hero, not a human, but a Wookiee.");
+  starwarstext.append("You must fight back against Darth Bruno and the Empire of"); 
+  starwarstext.append("Bruyesia. As you fly your ship through the galaxy, you must defeat ");
+  starwarstext.append("your enemies. Good luck, young Wookiee, and May the Force be with you!");
 } 
 
-void draw() {  
-  rotateX (PI/4);
+void draw() { 
 
   background(0);
-  translate(width/5, height, 0);
+  
+  fill (0, 255, 255);
+  text ("A long time ago in a galaxy far, far away....", x, height/6, -50);
+  
+  rotateX (PI/3);
   pushMatrix();
 
-//  for (int i=0; i<intro.length; i++) {
-//    text(intro[i], x, y[i], z[i]);
-//    y[i] -= 3;
-//    z[i] -= 2;
-//  }
-for(int i=0; i<starwarstext.size()-1; i++){
-String mytext=starwarstext.get(i);
-text(mytext, 0, y[i], z[i]);
-y[i]-=3;
-z[i]-=2;}
+  fill (255, 255, 0);
+  for (int i = 0; i < starwarstext.size (); i++) {
+    String mytext=starwarstext.get(i);
+    text(mytext, width/2, y[i], z[i]);
+    y[i] -= 4;
+    z[i] -= 2;
+  }
+
   popMatrix();
+
 }
 

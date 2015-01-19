@@ -7,6 +7,7 @@ public class Boss {
   int shield=2;
   boolean dead=false;
   float ypos;
+  float firingtimer=random(60,180);
   //float xfactor;
   //int amplitude=1000;
 
@@ -20,7 +21,8 @@ public class Boss {
   }
 
   void make() {
-    float t=(frameCount+xfactor)/150;
+    float t=(frameCount//+xfactor
+    )/150;
     //loc.set(width/2+width/2*sin((frameCount+xfactor)*TAU/360), ypos, -300*height/(120*tan(PI/6))*cos((frameCount+xfactor)*TAU/360)); //circular path
     // loc.set(500*sin(t), ypos, -2300);    //for testing
     loc.add(vel);
@@ -52,7 +54,7 @@ loc.set(0,0,0);
 vel.set(0,0,0);
 sz=1200;
 scale(.05, .05, .05);
-shield = 9999999999;}
+shield = 99999999;}
     if (shield>=3) {
       fill(0, 0, 255, 90);
     }

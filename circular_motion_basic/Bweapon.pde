@@ -1,11 +1,11 @@
-class BWeapon{
+public class Bweapon{
   PVector loc, vel, ploc;
   boolean dead;
   float created;
   float aimx;
   float aimy;
   float aimz; //these variables create a chance that the lasers miss
-BWeapon(Boss bossy){
+Bweapon(Boss bossy){
 
   aimx = (random(-500,500))/500;  //the bias factor is set. Notice that the chance of firing accurately is .5
    aimy = (random(-500,500))/500;

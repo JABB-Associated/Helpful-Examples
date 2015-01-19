@@ -4,6 +4,7 @@ AudioPlayer DuelofFates;
 Minim minim;
 
 int health = 1000;
+PShape deathstar; 
 PShape Boss1;
 PShape Destroyer;
 PShape Tiebomber;
@@ -44,6 +45,7 @@ void setup() {
   Tiebomber = loadShape("Tie Super.obj");
   Destroyer = loadShape("Imperial Class Destroyer.obj");
   Boss1 = loadShape("tiefighterboss.obj");
+  deathstar = loadShape("deathstar.obj");
   //cockpit = loadImage("maxresdefault.png");
   size(displayWidth, displayHeight, P3D);
 }

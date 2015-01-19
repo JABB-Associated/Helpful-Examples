@@ -49,6 +49,7 @@ void setup() {
 }
 
 void draw() {
+
   if (mousePressed ) {
     if (level<3) {
       level++;
@@ -59,7 +60,9 @@ void draw() {
   frameRate(60);
   background(0);
   DuelofFates.play();
-  fill(0, 0, 255);
+  if(health > 150){
+  fill(0, 0, 255);}
+  else{fill(255,0,0);}
   rect(50, 120, 20, -health/10); //health bar
   fill(0, 255, 0);
   rect(width-120, 120, 20, -20*(score%5)); //shows how close to getting missiles you are
@@ -71,7 +74,11 @@ void draw() {
   textSize(30);
   text(score, 150, 100); //display score
   text("M" + " " + missilecount, width-300, 100); // display number of missiles
+  textSize(15);
+text(health, 40, 15);
   textSize(20);
+
+
   text("Range:" + -1*round(-3*height/((2*frameRate)*zfire)*frameRate) + "meters", width-225, height/2);
   textSize(30);
   //image(cockpit, 0,0);
@@ -142,7 +149,7 @@ void draw() {
     if (myship.loc.z<=-6*height/(2*tan(PI/6))) {
       myship.vel.z=abs(myship.vel.z);
     }
-    if (frameCount-myship.firingtimer > 20) {
+    if (frameCount-myship.firingtimer > 60) {
       elasers.add( new Elaser(myship));
       myship.firingtimer = frameCount;
     }
@@ -173,9 +180,12 @@ void draw() {
   for ( int i= elasers.size () - 1; i>=0; i--) {
     Elaser elase = elasers.get(i);
     elase.make();
-    if (dist(elase.loc.x, elase.loc.y, elase.loc.z, movex, movey, -movez) < 100) {
+    if (dist(elase.loc.x, elase.loc.y, elase.loc.z,width/2-movex, height/2-movey, height/(2*tan(PI/6))-movez) < 50) {
       elase.hits();
     }
+    if(frameCount-elase.created>5*frameRate){
+    elasers.remove(elase);}
+   
   }
   ch.make();
 }

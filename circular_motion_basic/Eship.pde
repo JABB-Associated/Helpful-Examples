@@ -1,6 +1,6 @@
 public class Eship {
 
-
+float velx, velz;
   PVector loc, vel;
   int sz;
   boolean shooting = false;
@@ -12,7 +12,7 @@ public class Eship {
   float tbcompx=-50;
   float tbcompy=50; 
  float tbcompz=-10;
- float firingtimer=0 ;
+ float firingtimer=random(60,180) ;
 
   Eship() {
     //xfactor=random(-TAU*500, TAU*500); //for circular
@@ -27,15 +27,25 @@ public class Eship {
      shield = 2;}
       if( level == 3){
      shield = 3;}
-  }
+     float t=(frameCount+xfactor)/150;
+      loc.set(random(-1000,1000), random(-1000,1000), random(-1000, 1000)); 
+ 
+}
 
   void make() {
-    float t=(frameCount+xfactor)/150;
+      float t=(frameCount+xfactor)/150;
+    velz = amplitude*((sin(t))*(-sin(pow(t,5))/248832 - 2*cos(4*t) + exp(cos(t)))+(cos(t))*(-5*pow(t,4)*cos(pow(t,5)/248832)/248832)+8*sin(4*t)-(sin(t)*exp(cos(t))))  ;
+    velx = amplitude*((cos(t))*(-sin(pow(t,5))/248832 - 2*cos(4*t) + exp(cos(t)))+(sin(t))*(-5*pow(t,4)*cos(pow(t,5)/248832)/248832)+8*sin(4*t)-(sin(t)*exp(cos(t))))  ;
+  
+    vel.set(velx, 0, velz);
+    vel.limit(22);
+    loc.add(vel);
     //loc.set(width/2+width/2*sin((frameCount+xfactor)*TAU/360), ypos, -300*height/(120*tan(PI/6))*cos((frameCount+xfactor)*TAU/360)); //circular path
     // loc.set(500*sin(t), ypos, -2300);    //for testing
-   loc.set(width/2+(amplitude*sin(t))* (exp(cos(t))-2*cos(4*t)-sin(pow((t/12), 5))), ypos, (amplitude*cos(t))* ((exp(cos(t)))-2*cos(4*t)-sin(pow((t/12), 5)))); //random butterfly-like path
+   //loc.set(width/2+(amplitude*sin(t))* (exp(cos(t))-2*cos(4*t)-sin(pow((t/12), 5))), ypos, (amplitude*cos(t))* ((exp(cos(t)))-2*cos(4*t)-sin(pow((t/12), 5)))); //random butterfly-like path
     translate(loc.x, loc.y, loc.z);
     fill(255, 255, 0, 200);
+    
 
     if (level==1) {
       

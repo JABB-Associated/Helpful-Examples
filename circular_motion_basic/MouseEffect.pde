@@ -13,6 +13,7 @@ class MouseEffect {
     sz = 4;
     //capture the time the particle was created
     timecapture = frameCount;
+ 
   }
 
   void display() {

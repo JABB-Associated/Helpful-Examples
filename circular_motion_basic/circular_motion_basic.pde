@@ -45,9 +45,15 @@ boolean bosstime= false;
 boolean bossadded = false;
 boolean wavetime= false;
 int pscore=0;
+     // boolean reset = false; //tells to reset matrix in instruction screen
 float instructionscreen = 0; //times between instruction screen and scrolling text
+ int x;
+      int y [] = new int [7];
+      int z [] = new int [7];
+      StringList starwarstext;
 
 void setup() { 
+     noCursor();
   noStroke();
   minim = new Minim(this);
   DuelofFates = minim.loadFile("Duel of Fates.mp3", 512);
@@ -60,6 +66,11 @@ void setup() {
   //cockpit = loadImage("maxresdefault.png");
   size(displayWidth, displayHeight, P3D);
   START.add(new Start());
+        x = width/2;
+         for (int i=0; i<y.length; i++) {
+        y[i] = 3*height/2 + 140*i;
+        z[i] = -10*i;
+      }
 }
 
 void draw() {
@@ -69,13 +80,13 @@ void draw() {
   textAlign(LEFT, LEFT);
   // for testing
 
-  if (mousePressed ) {
-    if (level<3) {
-      level++;
-    } else {
-      level=1;
-    }
-  }
+//  if (mousePressed ) {
+//    if (level<3) {
+//      level++;
+//    } else {
+//      level=1;
+//    }
+//  }
   if (level == -1) { //start screen
     //add start button
 
@@ -115,22 +126,16 @@ void draw() {
     Shimmer.remove(0);
   }
   if (level == 0 ) {
-    if (frameCount-instructionscreen < 1120) {
-      int x;
-      int y [] = new int [7];
-      int z [] = new int [7];
-      StringList starwarstext;
+    if (frameCount-instructionscreen < 1200) {
+     
       textSize(60);
       textAlign (CENTER, CENTER);
 
-      x = width/2;
-      for (int i=0; i<y.length; i++) {
-        y[i] = 3*height/2 + 140*i;
-        z[i] = -10*i;
-      }
+
+     
 
       starwarstext= new StringList();
-
+ 
       starwarstext.append("The empire had seized control of the galaxy. As");
       starwarstext.append("systems fell, one after the other, the only hope was");
       starwarstext.append("for a hero. You are this hero, not a human, but a Wookiee.");
@@ -150,13 +155,13 @@ void draw() {
       }
 
       rotateX (PI/3);
-      pushMatrix();
+      //pushMatrix();
 
-      fill (255, 255, 0);
+     fill (255, 255, 0);
       for (int i = starwarstext.size ()-1; i >=0; i--) {
         String mytext=starwarstext.get(i);
         text(mytext, width/2, y[i], z[i]);
-        if (y[0]>-1500) {
+        if (y[0]>-2500) {
           y[i] -= 3;
           z[i] -= 1.5;
         } else {
@@ -165,18 +170,18 @@ void draw() {
         }
       }
 
-      popMatrix();
+      //popMatrix();
     } else {
-      boolean reset = false;
-      if (!reset) {
-        resetMatrix();
-        reset= true;
-      }
+//
+//      if (!reset) {
+//        resetMatrix();
+//        reset= true;
+//      }
       textSize (24); 
       fill (255, 255, 0);
       textAlign (CENTER, CENTER);
       text ("Destroy all enemies in a wave to advance to the boss. \nDefeat the boss to advance to the next level.\n Enemies will fire at you, lowering your blue health bar at the top left. \nThe top right represents the number of missiles available.\n \nMove in 3-D with 'WASD' and 'ZX' \nPress 'O' to fire lasers \nPress 'I' to fire missiles \nPress 'K' to scope in \nPress 'P' to scope out \nPress 'L' to go back to default scope. \n \nClick anywhere to continue.", width/2, height/2);
-      if (mousePressed) {
+      if (mousePressed && frameCount-instructionscreen>1200) {
         level=1;
       }
     }

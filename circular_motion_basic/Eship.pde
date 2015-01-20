@@ -64,9 +64,8 @@ public class Eship {
     fill(255, 255, 0, 200);
 
 
-//load different ships based on the level
+//load and scale different ships based on the level
     if (level==1) {
-
       amplitude=1000;
       sz=90;
       scale(10, 10, 10);
@@ -74,9 +73,7 @@ public class Eship {
       scale(.1, .1, .1);
     }
     if (level==2) {
-
       scale(.7, .7, .7);
-
       shape(Tiebomber);
       scale(1/.7, 1/.7, 1/.7);
       amplitude=1000;
@@ -84,7 +81,6 @@ public class Eship {
       translate(tbcompx, tbcompy, tbcompz);
     }
     if (level==3) {
-
       amplitude=5000;
       scale(5, 5, 5);
       shape(Destroyer);
@@ -101,15 +97,17 @@ public class Eship {
     if (shield==1) {
       fill(255, 0, 0, 65);
     }
+    //create the shield around the ships
     sphere(sz);
     fill(255, 255, 0, 200);
     //compensate for different center points in different files
     if (level==2) {
       translate(-tbcompx, -tbcompy, -tbcompz);
     }
+    //control motion
     translate(-1*loc.x, -1*loc.y, -1*loc.z);
-
     fill(0);
+    //when ships shields are depleted, remove them and add score
     if (shield<=0) {
       dead=true;
       score++;

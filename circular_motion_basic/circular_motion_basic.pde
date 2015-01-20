@@ -8,7 +8,7 @@ boolean fren = false;
 
 
 int health = 1000;
-PShape deathstar; 
+//PShape deathstar; 
 PShape Boss1;
 PShape Destroyer;
 PShape Tiebomber;
@@ -56,7 +56,7 @@ void setup() {
   Tiebomber = loadShape("Tie Super.obj");
   Destroyer = loadShape("Imperial Class Destroyer.obj");
   Boss1 = loadShape("tiefighterboss.obj");
-  deathstar = loadShape("deathstar.obj");
+ // deathstar = loadShape("deathstar.obj");
   //cockpit = loadImage("maxresdefault.png");
   size(displayWidth, displayHeight, P3D);
   START.add(new Start());
@@ -248,17 +248,24 @@ void draw() {
         bweapons.add( new Bweapon(thisboss));
         thisboss.firingtimer = frameCount;
       }
-    }
-    for (int j = bweapons.size ()-1; j>=0; j--) {
-      Bweapon bweap = bweapons.get(j);
-      bweap.make();
+      for (int m=lasers.size ()-1; m>=0; m--) {
+        Laser mylase=lasers.get(m);
 
-
-      if (dist(bweap.loc.x, bweap.loc.y, bweap.loc.z, width/2-movex, height/2-movey, height/(2*tan(PI/6))-movez) < 50) {
-        bweap.hits();
+        if (dist(thisboss.loc.x, thisboss.loc.y, thisboss.loc.z, mylase.loc.x, mylase.loc.y, mylase.loc.z)<=thisboss.sz) {
+          mylase.hits(thisboss);
+        }
       }
-      if (frameCount-bweap.created>5*frameRate) {
-        bweapons.remove(bweap);
+      for (int j = bweapons.size ()-1; j>=0; j--) {
+        Bweapon bweap = bweapons.get(j);
+        bweap.make();
+
+
+        if (dist(bweap.loc.x, bweap.loc.y, bweap.loc.z, width/2-movex, height/2-movey, height/(2*tan(PI/6))-movez) < 50) {
+          bweap.hits();
+        }
+        if (frameCount-bweap.created>5*frameRate) {
+          bweapons.remove(bweap);
+        }
       }
     }
 
@@ -274,6 +281,7 @@ void draw() {
           mylase.hits(myship);
         }
       }
+
 
       for (int k= missiles.size ()-1; k>=0; k--) {
         Missile mymiss = missiles.get(k);
@@ -329,19 +337,21 @@ void draw() {
         }
       }
     }
-    for ( int i= elasers.size () - 1; i>=0; i--) {
-      Elaser elase = elasers.get(i);
-      elase.make();
-      if (dist(elase.loc.x, elase.loc.y, elase.loc.z, width/2-movex, height/2-movey, height/(2*tan(PI/6))-movez) < 50) {
-        elase.hits();
-      }
-      if (frameCount-elase.created>5*frameRate) {
-        elasers.remove(elase);
-      }
+  
+  for ( int i= elasers.size () - 1; i>=0; i--) {
+    Elaser elase = elasers.get(i);
+    elase.make();
+    if (dist(elase.loc.x, elase.loc.y, elase.loc.z, width/2-movex, height/2-movey, height/(2*tan(PI/6))-movez) < 50) {
+      elase.hits();
     }
-    ch.make();
+    if (frameCount-elase.created>5*frameRate) {
+      elasers.remove(elase);
+    }
   }
+  ch.make();
+    }
 }
+
 
 void keyPressed() {
   if (level>0) {

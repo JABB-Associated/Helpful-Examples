@@ -46,5 +46,8 @@ framerater=frameRate; //lag compensator
     tship.shield--;
     death=true;
   }
+  void hits(Boss tboss){
+  tboss.shield--;
+death = true;}
 }
 

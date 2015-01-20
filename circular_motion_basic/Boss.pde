@@ -49,7 +49,7 @@ public class Boss {
     }
     if(level==3 && bosstime){
     scale(20,20,20);
-  shape(deathstar);
+  //shape(deathstar);
 loc.set(0,0,0);
 vel.set(0,0,0);
 sz=1200;

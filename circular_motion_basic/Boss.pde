@@ -33,7 +33,7 @@ public class Boss {
     if (level == 1 && bosstime) {
       scale(10, 10, 10);
       shape(Boss1);
-   vel.set(4*cos(t), ypos, 4*sin(t));
+   
       scale(.1, .1, .1);
       shield = 50;
     }
@@ -49,7 +49,7 @@ public class Boss {
     }
     if(level==3 && bosstime){
     scale(20,20,20);
-  //shape(deathstar);
+  shape(deathstar);
 loc.set(0,0,0);
 vel.set(0,0,0);
 sz=1200;

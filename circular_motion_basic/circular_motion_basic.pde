@@ -8,7 +8,7 @@ boolean fren = false;
 
 
 int health = 1000;
-//PShape deathstar; 
+PShape deathstar; 
 PShape Boss1;
 PShape Destroyer;
 PShape Tiebomber;
@@ -62,7 +62,7 @@ void setup() {
   Tiebomber = loadShape("Tie Super.obj");
   Destroyer = loadShape("Imperial Class Destroyer.obj");
   Boss1 = loadShape("tiefighterboss.obj");
- // deathstar = loadShape("deathstar.obj");
+  deathstar = loadShape("deathstar.obj");
   //cockpit = loadImage("maxresdefault.png");
   size(displayWidth, displayHeight, P3D);
   START.add(new Start());
@@ -80,13 +80,13 @@ void draw() {
   textAlign(LEFT, LEFT);
   // for testing
 
-//  if (mousePressed ) {
-//    if (level<3) {
-//      level++;
-//    } else {
-//      level=1;
-//    }
-//  }
+  if (mousePressed ) {
+    if (level<3) {
+      level++;
+    } else {
+      level=1;
+    }
+  }
   if (level == -1) { //start screen
     //add start button
 

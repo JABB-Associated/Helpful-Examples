@@ -1,4 +1,4 @@
-import ddf.minim.*;
+teimport ddf.minim.*;
 AudioPlayer DuelofFates;
 //AudioPlayer Blaster;
 Minim minim;
@@ -249,6 +249,7 @@ void draw() {
 
     for (int i= bosses.size ()-1; i>=0; i--) {
       Boss thisboss = bosses.get(i);
+ 
       if (thisboss.dead) {
         bosses.remove(thisboss);
       }

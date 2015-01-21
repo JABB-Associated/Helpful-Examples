@@ -7,7 +7,7 @@ public class Boss {
   int shield=2;
   boolean dead=false;
   float ypos;
-  float firingtimer=random(60,180);
+  float firingtimer=0;
     float dscompx=500;
   float dscompy=-500; 
   float dscompz=-10;
@@ -24,6 +24,12 @@ public class Boss {
     int sz=90;
     loc=new PVector(random(-200, width), ypos, -9000);
     vel=new PVector(0, 0, 8);
+    if(level==1 && bosstime){
+     shield = 15;}
+     if(level==2 && bosstime){
+     shield = 30;}
+     if(level==3 && bosstime){
+     shield = 50;}
   }
 
   void make() {
@@ -42,7 +48,7 @@ public class Boss {
       shape(Boss1);
    sz=500;
       scale(1/30,1/30,1/30);
-      shield = 15;
+     
       translate(-tacompx, -tacompy, -tacompz);
     }
     if ( level == 2 && bosstime) {
@@ -52,7 +58,7 @@ public class Boss {
       vel.sub(movex, movey, movez);
       vel.mult(1/(10*frameRate));
       sz=150;
-      shield = 30;
+ 
       scale(1/25,1/25,1/25);
     }
     if(level==3 && bosstime){
@@ -63,7 +69,7 @@ loc.set(0,0,0);
 vel.set(0,0,0);
 sz=1200;
 scale(.05, .05, .05);
-shield = 50;
+
   translate(-dscompx, -dscompy, -dscompz);}
     if (shield>=3) {
       fill(0, 0, 255, 90);

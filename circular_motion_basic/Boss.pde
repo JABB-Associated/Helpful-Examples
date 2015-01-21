@@ -8,6 +8,12 @@ public class Boss {
   boolean dead=false;
   float ypos;
   float firingtimer=random(60,180);
+    float dscompx=500;
+  float dscompy=-500; 
+  float dscompz=-10;
+    float tacompx=-50;
+  float tacompy=50; 
+  float tacompz=-10;
   //float xfactor;
   //int amplitude=1000;
 
@@ -17,7 +23,7 @@ public class Boss {
     ypos= height/2;
     int sz=90;
     loc=new PVector(random(-200, width), ypos, -9000);
-    vel=new PVector(0, 0, 25);
+    vel=new PVector(0, 0, 8);
   }
 
   void make() {
@@ -31,37 +37,41 @@ public class Boss {
     fill(255, 255, 0, 200);
 
     if (level == 1 && bosstime) {
-      scale(10, 10, 10);
+      translate(tacompx, tacompy, tacompz);
+      scale(30,30,30);
       shape(Boss1);
-   
-      scale(.1, .1, .1);
-      shield = 50;
+   sz=500;
+      scale(1/30,1/30,1/30);
+      shield = 15;
+      translate(-tacompx, -tacompy, -tacompz);
     }
     if ( level == 2 && bosstime) {
-      scale(15, 15, 15);
+      scale(25, 25, 25);
       shape(Destroyer);
          vel.set(loc.x, loc.y, loc.z);
       vel.sub(movex, movey, movez);
       vel.mult(1/(10*frameRate));
-      sz=1200;
-      shield = 75;
-      scale(1/15, 1/15, 1/15);
+      sz=150;
+      shield = 30;
+      scale(1/25,1/25,1/25);
     }
     if(level==3 && bosstime){
+      translate(dscompx, dscompy, dscompz);
     scale(20,20,20);
   shape(deathstar);
 loc.set(0,0,0);
 vel.set(0,0,0);
 sz=1200;
 scale(.05, .05, .05);
-shield = 99999999;}
+shield = 50;
+  translate(-dscompx, -dscompy, -dscompz);}
     if (shield>=3) {
       fill(0, 0, 255, 90);
     }
-    if (shield==2) {
+    if ((shield==8 && level == 1) || (shield==10 && level ==2) || (shield == 25 && level == 3)) {
       fill(0, 255, 255, 65);
     }
-    if (shield==1) {
+    if ((shield==3 && level == 1) || (shield==5 && level ==2) || (shield == 10 && level == 3)) {
       fill(255, 0, 0, 65);
     }
     sphere(sz);

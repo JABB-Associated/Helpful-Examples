@@ -33,7 +33,7 @@ Bweapon(Boss bossy){
    ploc.add(vel);
    fill(0,255,0);
    stroke(0,255,0);
-   strokeWeight(12);
+   strokeWeight(12*level);
    line(ploc.x, ploc.y, ploc.z, loc.x, loc.y, loc.z);
    noStroke();
    strokeWeight(1);

@@ -87,6 +87,10 @@ void draw() {
       level=1;
     }
   }
+  //more testing
+  if(wavetime && key=='t'){
+    bosstime=true;
+    wavetime=false;}
   if (level == -1) { //start screen
     //add start button
 
@@ -249,7 +253,7 @@ void draw() {
         bosses.remove(thisboss);
       }
       thisboss.make();
-      if (frameCount-thisboss.firingtimer > 45) {
+      if (frameCount-thisboss.firingtimer > 10/level) {
         bweapons.add( new Bweapon(thisboss));
         thisboss.firingtimer = frameCount;
       }
@@ -327,6 +331,8 @@ void draw() {
       if (frameCount-mylase.create>(mylase.framerater) || mylase.death) {
         lasers.remove(mylase);
       }
+      stroke(255,0,0);
+      strokeWeight(1);
       ch.make();
     }
 
@@ -353,6 +359,8 @@ void draw() {
       elasers.remove(elase);
     }
   }
+  stroke(255,0,0);
+  strokeWeight(1);
   ch.make();
     }
 }

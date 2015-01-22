@@ -2,9 +2,9 @@
 ArrayList<Start> START = new ArrayList<Start>();
 //Initialize for mouse effect
 ArrayList<MouseEffect> Shimmer = new ArrayList<MouseEffect>();
-int x;
-int n = 20;
-int y[] = new int [n];
+int x1;
+
+int y1[] = new int [20];
 StringList credits;
 
 void setup () {
@@ -35,16 +35,21 @@ void setup () {
   credits.append ("Eric Matrone - Batman");
   credits.append ("Pavan Patel - Head Custodian");
   credits.append (" ");
+  credits.append("John Williams - Music (Used Without Permission)");
+  credits.append(" ");
   credits.append ("THE END");
 
-  x = width/2;
-  for (int i=0; i<n; i++) {
-    y[i] = height + 60*i;
+  x1 = width/2;
+  for (int i=0; i<20; i++) {
+    y1[i] = height + 60*i;
   }
 }
 
 void draw () {
+  
+ 
   background (0);
+   text(frameCount, 500,500);
   //create the mouse effect
   for (int i = 0; i < 15; i++) {
     Shimmer.add (new MouseEffect ());
@@ -68,7 +73,7 @@ void draw () {
     }
   }
   fill (255, 255, 0);
-  for (int i=0; i< n; i++) {
+  for (int i=0; i<20; i++) {
 
     if (i==0) {
       fill (0, 255, 255);
@@ -96,8 +101,8 @@ void draw () {
     }
 
     String line = credits.get(i);
-    text (line, x, y[i]);
-    y[i] -= 2;
+    text (line, x1, y1[i]);
+    y1[i] -= 2;
   }
 }
 

@@ -73,5 +73,28 @@ class Start {
     imageMode(CENTER);
     image (title, width/2, height/2);
   }
+  void death () {
+ 
+    textAlign (CENTER, CENTER);
+    textSize (50);
+    //change color of start button if moused over
+    if (mouseX > rectX && mouseX < rectX + W && mouseY > rectY && mouseY < rectY + H) {
+      fill (0, 255, 0);
+      if(mousePressed){
+        level = 1;
+        restart = false;
+  
+      }
+    } else {
+      fill (255, 0, 0);
+    }
+    rect (rectX, rectY, W, H);
+    fill (0);
+    //display text for restart button
+    text ("RESTART", width/2, 2*H/5 + rectY);
+    fill (255, 255, 0);
+    textSize (200);
+    text ("GAME OVER", width/2, height/5); //fun end game message
+  }
 }
 

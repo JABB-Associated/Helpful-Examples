@@ -19,7 +19,7 @@ class Start {
     //set size of the stars
     sz = 5;
     //set size and position of the start button
-    W = 200;
+    W = 250;
     H = 75;
     rectX = width/2 - W/2;
     rectY = 2*height/3;
@@ -39,10 +39,10 @@ class Start {
     }
     for (int i = 0; i < starX.length; i++) {
       transparency += 4;
-      if(transparency>100){
-       transparency = 0; 
+      if (transparency>100) {
+        transparency = 0;
       }
-      fill(255,255,255,transparency);
+      fill(255, 255, 255, transparency);
       ellipse (starX[i], starY[i], sz, sz);
     }
   }
@@ -62,6 +62,25 @@ class Start {
     fill (0);
     //display text for start button
     text ("START", width/2, 2*H/5 + rectY);
+  }
+
+  void death () {
+    background (0);
+    textAlign (CENTER, CENTER);
+    textSize (50);
+    //change color of start button if moused over
+    if (mouseX > rectX && mouseX < rectX + W && mouseY > rectY && mouseY < rectY + H) {
+      fill (0, 255, 0);
+    } else {
+      fill (255, 0, 0);
+    }
+    rect (rectX, rectY, W, H);
+    fill (0);
+    //display text for start button
+    text ("RESTART", width/2, 2*H/5 + rectY);
+    fill (255, 255, 0);
+    textSize (200);
+    text ("GAME OVER", width/2, height/5);
   }
 
   void title () {

@@ -21,7 +21,9 @@ void draw () {
     alpha.display();
     alpha.button();
     alpha.title();
-
+  if (mousePressed == true) {
+    alpha.death ();
+    }
 
 //remove stars (this causes the blinking)
     if (START.size ()> 50) {

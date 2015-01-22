@@ -1,6 +1,6 @@
 import ddf.minim.*;
 AudioPlayer DuelofFates;
-//AudioPlayer Blaster;
+AudioPlayer IntroMusic;
 Minim minim;
 
 float fc7=0;
@@ -44,31 +44,31 @@ boolean makeships = true;
 float fc8 = 0;
 
 int pscore=0;
-     // boolean reset = false; //tells to reset matrix in instruction screen
+// boolean reset = false; //tells to reset matrix in instruction screen
 float instructionscreen = 0; //times between instruction screen and scrolling text
- int x;
-      int y [] = new int [7];
-      int z [] = new int [7];
-      StringList starwarstext;
+int x;
+int y [] = new int [7];
+int z [] = new int [7];
+StringList starwarstext;
 
 void setup() { 
-     noCursor();
+  noCursor();
   noStroke();
   minim = new Minim(this);
   DuelofFates = minim.loadFile("Duel of Fates.mp3", 512);
-  //Blaster = minim.loadFile("X Wing Sound.mp3", 5048);
+  IntroMusic = minim.loadFile("IntroMusic.mp3", 5048);
   Tiefighter = loadShape("Tiefighter.obj");
   Tiebomber = loadShape("Tie Super.obj");
   Destroyer = loadShape("Imperial Class Destroyer.obj");
- 
+
   //cockpit = loadImage("maxresdefault.png");
   size(displayWidth, displayHeight, P3D);
   START.add(new Start());
-        x = width/2;
-         for (int i=0; i<y.length; i++) {
-        y[i] = 3*height/2 + 140*i;
-        z[i] = -10*i;
-      }
+  x = width/2;
+  for (int i=0; i<y.length; i++) {
+    y[i] = 3*height/2 + 140*i;
+    z[i] = -10*i;
+  }
 }
 
 void draw() {
@@ -78,17 +78,23 @@ void draw() {
   textAlign(LEFT, LEFT);
   // for testing
 
-//  if (mousePressed ) {
-//    if (level<3) {
-//      level++;
-//    } else {
-//      level=1;
-//    }
-//  }
-//  //more testing
-//  if(wavetime && key=='t'){
-//    bosstime=true;
-//    wavetime=false;}
+  //  if (mousePressed ) {
+  //    if (level<3) {
+  //      level++;
+  //    } else {
+  //      level=1;
+  //    }
+  //  }
+  //  //more testing
+  //  if(wavetime && key=='t'){
+  //    bosstime=true;
+  //    wavetime=false;}
+  if (level < 1) {
+    IntroMusic.play();
+    if (!IntroMusic.isPlaying()) {
+      IntroMusic.rewind();
+    }
+  }
   if (level == -1) { //start screen
     //add start button
 
@@ -129,15 +135,15 @@ void draw() {
   }
   if (level == 0 ) {
     if (frameCount-instructionscreen < 1200) {
-     
+
       textSize(60);
       textAlign (CENTER, CENTER);
 
 
-     
+
 
       starwarstext= new StringList();
- 
+
       starwarstext.append("The empire had seized control of the galaxy. As");
       starwarstext.append("systems fell, one after the other, the only hope was");
       starwarstext.append("for a hero. You are this hero, not a human, but a Wookiee.");
@@ -159,7 +165,7 @@ void draw() {
       rotateX (PI/3); //slants text
       //pushMatrix();
 
-     fill (255, 255, 0);
+      fill (255, 255, 0);
       for (int i = starwarstext.size ()-1; i >=0; i--) {
         String mytext=starwarstext.get(i);
         text(mytext, width/2, y[i], z[i]);
@@ -174,11 +180,11 @@ void draw() {
 
       //popMatrix();
     } else {
-//
-//      if (!reset) {
-//        resetMatrix();
-//        reset= true;
-//      }
+      //
+      //      if (!reset) {
+      //        resetMatrix();
+      //        reset= true;
+      //      }
       textSize (24); 
       fill (255, 255, 0);
       textAlign (CENTER, CENTER);
@@ -192,9 +198,10 @@ void draw() {
 
 
   if (level >0) {
-  
-      DuelofFates.play();
-    
+    DuelofFates.play();
+    if (!DuelofFates.isPlaying()) {
+      DuelofFates.rewind();
+    }
     if (health > 150) {
       fill(0, 0, 255);
     } else {
@@ -203,7 +210,7 @@ void draw() {
     rect(50, 120, 20, -health/10); //health bar
     fill(0, 255, 0);
     rect(width-120, 120, 20, -20*(score%5)); //shows how close to getting missiles you are
-   
+
     noStroke();
     textSize(30);
     text(score, 150, 100); //display score
@@ -224,27 +231,28 @@ void draw() {
     update(); //updates input-based things
 
     translate(movex, movey, movez); //moves all objects relative to movement of controls
-//    rotateX(rotatey);
-//    rotateY(rotatex);
+    //    rotateX(rotatey);
+    //    rotateY(rotatex);
 
-   
+
     if (// (frameCount-fc>20 || shipoff) && eships.size()<=15) {
     eships.size()+score-pscore <= 14 && makeships==true) {
       eships.add(new Eship());
       // fc=frameCount;
       //shipoff=false;
     }
-    if (eships.size() == 0 && level < 4 && frameCount-fc8>100){
-    level++;
-  makeships= true;
-fc8=frameCount;
-pscore = score;
-movex = 0;
-movey = 0;
-movez = 0;}
+    if (eships.size() == 0 && level < 4 && frameCount-fc8>100) {
+      level++;
+      makeships= true;
+      fc8=frameCount;
+      pscore = score;
+      movex = 0;
+      movey = 0;
+      movez = 0;
+    }
 
-   
-    
+
+
 
 
     //ship-laser detection loop
@@ -299,7 +307,7 @@ movez = 0;}
       if (frameCount-mylase.create>(mylase.framerater) || mylase.death) {
         lasers.remove(mylase);
       }
-      stroke(255,0,0);
+      stroke(255, 0, 0);
       strokeWeight(1);
       ch.make();
     }
@@ -316,25 +324,30 @@ movez = 0;}
         }
       }
     }
-  
-  for ( int i= elasers.size () - 1; i>=0; i--) {
-    Elaser elase = elasers.get(i);
-    elase.make();
-    if (dist(elase.loc.x, elase.loc.y, elase.loc.z, width/2-movex, height/2-movey, height/(2*tan(PI/6))-movez) < 50) {
-      elase.hits();
+
+    for ( int i= elasers.size () - 1; i>=0; i--) {
+      Elaser elase = elasers.get(i);
+      elase.make();
+      if (dist(elase.loc.x, elase.loc.y, elase.loc.z, width/2-movex, height/2-movey, height/(2*tan(PI/6))-movez) < 50) {
+        elase.hits();
+      }
+      if (frameCount-elase.created>5*frameRate) {
+        elasers.remove(elase);
+      }
     }
-    if (frameCount-elase.created>5*frameRate) {
-      elasers.remove(elase);
+    stroke(255, 0, 0);
+    strokeWeight(1);
+    ch.make();
+    if (health <=0) {
+      exit();
     }
   }
-  stroke(255,0,0);
-  strokeWeight(1);
-  ch.make();
-  if(health <=0){
-  exit();}
-    }
 }
 
+void stop() {
+  minim.stop();
+  super.stop();
+}
 
 void keyPressed() {
   if (level>0) {
@@ -426,21 +439,21 @@ void update() {
       movez-=10;
     }
 
-//    if (keys[UP]) {
-//      rotatey+=PI/6;
-//    }
-//
-//    if (keys[DOWN]) {
-//      rotatey-=PI/6;
-//    }
-//
-//    if (keys[LEFT]) {
-//      rotatex-=PI/6;
-//    }
-//
-//    if (keys[RIGHT]) {
-//      rotatex+=PI/6;
-//    }
+    //    if (keys[UP]) {
+    //      rotatey+=PI/6;
+    //    }
+    //
+    //    if (keys[DOWN]) {
+    //      rotatey-=PI/6;
+    //    }
+    //
+    //    if (keys[LEFT]) {
+    //      rotatex-=PI/6;
+    //    }
+    //
+    //    if (keys[RIGHT]) {
+    //      rotatex+=PI/6;
+    //    }
   }
 }
 

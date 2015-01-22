@@ -52,7 +52,7 @@ public class Eship {
   
  
     t= (frameCount-create+xfactor)/150;
-    if((t > 500 && t<1000) || t>1500){
+    if((t > 50 && t<100) || t>150){
     t-=2/150; //reverse motion after a certain time
     }
    

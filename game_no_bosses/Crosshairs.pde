@@ -30,7 +30,7 @@ class Crosshairs {
     //rotateX(rotatey);
     //rotateY(rotatex);
 
-    //noStroke();
+    noStroke();
   }
 }
 

@@ -3,6 +3,7 @@ class MouseEffect {
   //initialize variables for the effect
   PVector loc, vel;
   float sz;
+  
   //initialize variable to remove the effect after time
   float timecapture;
 
@@ -11,6 +12,7 @@ class MouseEffect {
     loc = new PVector(mouseX, mouseY);
     vel = new PVector(random(-1, 1), random(-1, 1));
     sz = 4;
+   
     //capture the time the particle was created
     timecapture = frameCount;
  

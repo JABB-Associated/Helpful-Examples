@@ -6,7 +6,7 @@ int x1;
 int credittime = 0;
 int y1[] = new int [20];
 StringList credits;
-
+boolean creditstart = false;
 float fc7=0;
 boolean fren = false;
 
@@ -382,36 +382,44 @@ void draw() {
     mystart.death();
   }
   if (level == 4) {
-   credittime = frameCount;
-    credits = new StringList();
 
-    credits.append ("Credits");
-    credits.append (" ");
-    credits.append ("Josh Bochner - Project Manager");
-    credits.append ("Bruno Avritzer - Lead Programmer");
-    credits.append ("Ben Liang - Graphics and UI Designer");
-    credits.append ("Adel Setoodehnia - QA Tester");
-    credits.append (" ");
-    credits.append ("Intro to Programming - Ms. Gerstein");
-    credits.append (" ");
-    credits.append ("Inspired by George Lucas' 'Star Wars'");
-    credits.append ("Special Thanks to the Internet for Images");
-    credits.append (" ");
-    credits.append ("Shout Out To:");
-    credits.append (" ");
-    credits.append ("Jay Patel - Photoshop");
-    credits.append ("Marcus Moore - 3DS Max");
-    credits.append ("Pavan and Eric - Custodial Staff");
-    credits.append ("John Williams - Music - Used Without Permission");
-    credits.append (" ");
-
-    credits.append ("THE END");
-
-    x1 = width/2;
-    for (int i=0; i<20; i++) {
-      y1[i] = height + 60*i;
+    if (frameCount - credittime >=0 && START.size()==0) {
+      START.add(new Start());
     }
-    
+    if (!creditstart) {
+      credittime = frameCount;
+      credits = new StringList();
+      textAlign(CENTER, CENTER);
+      credits.append ("Credits");
+      credits.append (" ");
+      credits.append ("Josh Bochner - Project Manager");
+      credits.append ("Bruno Avritzer - Lead Programmer");
+      credits.append ("Ben Liang - Graphics and UI Designer");
+      credits.append ("Adel Setoodehnia - QA Tester");
+      credits.append (" ");
+      credits.append ("Intro to Programming - Ms. Gerstein");
+      credits.append (" ");
+      credits.append ("Inspired by George Lucas' 'Star Wars'");
+      credits.append ("Special Thanks to the Internet for Images");
+      credits.append (" ");
+      credits.append ("Shout Out To:");
+      credits.append (" ");
+      credits.append ("Jay Patel - Photoshop");
+      credits.append ("Marcus Moore - 3DS Max");
+      credits.append ("Pavan and Eric - Custodial Staff");
+      credits.append ("John Williams - Music - Used Without Permission");
+      credits.append (" ");
+
+      credits.append ("THE END");
+
+      x1 = width/2;
+      for (int i=0; i<20; i++) {
+        y1[i] = height + 60*i;
+      }
+
+      creditstart = true;
+    }
+    textAlign(CENTER, CENTER);
     //create the mouse effect
     for (int i = 0; i < 15; i++) {
       Shimmer.add (new MouseEffect ());
@@ -457,7 +465,7 @@ void draw() {
         textSize (30);
       }
 
-      if (i==21) {
+      if (i==19) {
         fill (0, 255, 255);
         textSize (70);
       }
@@ -465,6 +473,9 @@ void draw() {
       String line = credits.get(i);
       text (line, x1, y1[i]);
       y1[i] -= 2;
+    }
+    if (frameCount - credittime>1200) {
+      exit();
     }
   }
 }

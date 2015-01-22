@@ -3,6 +3,7 @@ class Crosshairs {
 
   Crosshairs() {
   } 
+  
   void make() {
     //initialize and assign value to control the size of the cursor based on distance firing
     float sz = 100/(1-((-3*height/((2*frameRate)*sq(zfire))*frameRate)/2078));
@@ -18,15 +19,18 @@ class Crosshairs {
 
     //create the crosshair in the middle of the map
     ellipse(width/2, height/2, sz/3, sz/3);
+   
+   //Creates an empty ring wihtin the red circle to create crosshair effect
     noFill();
     ellipse(width/2, height/2, sz, sz);
-    //make crosshair display independently of ship's motion
+    
+    //Make crosshair display independently of ship's motion
     translate(movex, movey, movez);
 
     //rotateX(rotatey);
     //rotateY(rotatex);
 
-    noStroke();
+    //noStroke();
   }
 }
 

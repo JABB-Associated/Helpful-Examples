@@ -1,4 +1,4 @@
-teimport ddf.minim.*;
+import ddf.minim.*;
 AudioPlayer DuelofFates;
 //AudioPlayer Blaster;
 Minim minim;
@@ -45,15 +45,15 @@ boolean bosstime= false;
 boolean bossadded = false;
 boolean wavetime= false;
 int pscore=0;
-     // boolean reset = false; //tells to reset matrix in instruction screen
+// boolean reset = false; //tells to reset matrix in instruction screen
 float instructionscreen = 0; //times between instruction screen and scrolling text
- int x;
-      int y [] = new int [7];
-      int z [] = new int [7];
-      StringList starwarstext;
+int x;
+int y [] = new int [7];
+int z [] = new int [7];
+StringList starwarstext;
 
 void setup() { 
-     noCursor();
+  noCursor();
   noStroke();
   minim = new Minim(this);
   DuelofFates = minim.loadFile("Duel of Fates.mp3", 512);
@@ -66,11 +66,11 @@ void setup() {
   //cockpit = loadImage("maxresdefault.png");
   size(displayWidth, displayHeight, P3D);
   START.add(new Start());
-        x = width/2;
-         for (int i=0; i<y.length; i++) {
-        y[i] = 3*height/2 + 140*i;
-        z[i] = -10*i;
-      }
+  x = width/2;
+  for (int i=0; i<y.length; i++) {
+    y[i] = 3*height/2 + 140*i;
+    z[i] = -10*i;
+  }
 }
 
 void draw() {
@@ -88,9 +88,10 @@ void draw() {
     }
   }
   //more testing
-  if(wavetime && key=='t'){
+  if (wavetime && key=='t') {
     bosstime=true;
-    wavetime=false;}
+    wavetime=false;
+  }
   if (level == -1) { //start screen
     //add start button
 
@@ -131,15 +132,15 @@ void draw() {
   }
   if (level == 0 ) {
     if (frameCount-instructionscreen < 1200) {
-     
+
       textSize(60);
       textAlign (CENTER, CENTER);
 
 
-     
+
 
       starwarstext= new StringList();
- 
+
       starwarstext.append("The empire had seized control of the galaxy. As");
       starwarstext.append("systems fell, one after the other, the only hope was");
       starwarstext.append("for a hero. You are this hero, not a human, but a Wookiee.");
@@ -161,7 +162,7 @@ void draw() {
       rotateX (PI/3);
       //pushMatrix();
 
-     fill (255, 255, 0);
+      fill (255, 255, 0);
       for (int i = starwarstext.size ()-1; i >=0; i--) {
         String mytext=starwarstext.get(i);
         text(mytext, width/2, y[i], z[i]);
@@ -176,11 +177,11 @@ void draw() {
 
       //popMatrix();
     } else {
-//
-//      if (!reset) {
-//        resetMatrix();
-//        reset= true;
-//      }
+      //
+      //      if (!reset) {
+      //        resetMatrix();
+      //        reset= true;
+      //      }
       textSize (24); 
       fill (255, 255, 0);
       textAlign (CENTER, CENTER);
@@ -249,7 +250,7 @@ void draw() {
 
     for (int i= bosses.size ()-1; i>=0; i--) {
       Boss thisboss = bosses.get(i);
- 
+
       if (thisboss.dead) {
         bosses.remove(thisboss);
       }
@@ -332,9 +333,9 @@ void draw() {
       if (frameCount-mylase.create>(mylase.framerater) || mylase.death) {
         lasers.remove(mylase);
       }
-      stroke(255,0,0);
-      strokeWeight(1);
-      ch.make();
+      //      stroke(255,0,0);
+      //      strokeWeight(1);
+      //      ch.make();
     }
 
     for (int k=missiles.size ()-1; k>=0; k--) {
@@ -349,21 +350,22 @@ void draw() {
         }
       }
     }
-  
-  for ( int i= elasers.size () - 1; i>=0; i--) {
-    Elaser elase = elasers.get(i);
-    elase.make();
-    if (dist(elase.loc.x, elase.loc.y, elase.loc.z, width/2-movex, height/2-movey, height/(2*tan(PI/6))-movez) < 50) {
-      elase.hits();
+
+    for ( int i= elasers.size () - 1; i>=0; i--) {
+      Elaser elase = elasers.get(i);
+      elase.make();
+      if (dist(elase.loc.x, elase.loc.y, elase.loc.z, width/2-movex, height/2-movey, height/(2*tan(PI/6))-movez) < 50) {
+        elase.hits();
+      }
+      if (frameCount-elase.created>5*frameRate) {
+        elasers.remove(elase);
+      }
     }
-    if (frameCount-elase.created>5*frameRate) {
-      elasers.remove(elase);
-    }
+    fill(255, 0, 0);
+    stroke(255, 0, 0);
+    strokeWeight(1);
+    ch.make();
   }
-  stroke(255,0,0);
-  strokeWeight(1);
-  ch.make();
-    }
 }
 
 

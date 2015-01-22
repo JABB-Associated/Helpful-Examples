@@ -34,7 +34,7 @@ public class Boss {
 
   void make() {
     float t=(frameCount//+xfactor
-    )/150;
+    )/(150*level);
     //loc.set(width/2+width/2*sin((frameCount+xfactor)*TAU/360), ypos, -300*height/(120*tan(PI/6))*cos((frameCount+xfactor)*TAU/360)); //circular path
     // loc.set(500*sin(t), ypos, -2300);    //for testing
     loc.add(vel);

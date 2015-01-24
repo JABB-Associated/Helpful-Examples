@@ -91,14 +91,18 @@ class Start {
   
   void death () {
     textAlign (CENTER, CENTER);
-    textSize (50);
+    textSize (40);
+    
+     cursor(HAND);
     
     //change color of start button if moused over
     if (mouseX > rectX && mouseX < rectX + W && mouseY > rectY && mouseY < rectY + H) {
       fill (0, 255, 0);
       
       if(mousePressed){
+       
         level = 1;
+        health = 1000;
         restart = false;
       }
     } else {

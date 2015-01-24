@@ -104,21 +104,23 @@ void draw() {
   textAlign(LEFT, LEFT);
   // for testing
 
-  if (keys[UP] && frameCount-f9>=90) {
-    if (level<6) {
-      level++;
-      f9=frameCount;
-    } else {
-      level=1;
-    }
-  }
+//  if (keys[UP] && frameCount-f9>=90) {
+//    if (level<6) {
+//      level++;
+//      f9=frameCount;
+//    } else {
+//      level=1;
+//    }
+//  }
   //  //more testing
   //  if(wavetime && key=='t'){
   //    bosstime=true;
   //    wavetime=false;}
   if (level < 1) { //play intro music
     IntroMusic.play();
+
     if (!IntroMusic.isPlaying()) {
+      IntroMusic.pause();
       IntroMusic.rewind(); //loop intro music
     }
   }
@@ -230,9 +232,13 @@ void draw() {
 
 
   if (level >0 && level <=3) {
+    noCursor();
     DuelofFates.play();
+
     if (!DuelofFates.isPlaying()) {
+      DuelofFates.pause();
       DuelofFates.rewind();
+     
     }
     if (health > 150) {
       fill(0, 0, 255);
@@ -378,7 +384,7 @@ void draw() {
     if (START.size()==0) {
       START.add(new Start());
     }
-    Start mystart = START.get(1);
+    Start mystart = START.get(0);
     mystart.death();
   }
   if (level == 4) {
@@ -397,7 +403,7 @@ void draw() {
       credits.append ("Ben Liang - Graphics and UI Designer");
       credits.append ("Adel Setoodehnia - QA Tester");
       credits.append (" ");
-      credits.append ("Intro to Programming - Ms. Gerstein");
+      credits.append ("Intro to Programming - Mrs. Gerstein");
       credits.append (" ");
       credits.append ("Inspired by George Lucas' 'Star Wars'");
       credits.append ("Special Thanks to the Internet for Images");

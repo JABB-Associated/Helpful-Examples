@@ -8,6 +8,7 @@ public class Eship {
   float ypos;
   float xfactor;
   int sz;
+  
 
   //initialize variables to control status of ship (shooting, having a shield, alive or dead)
   boolean shooting = false;
@@ -57,14 +58,14 @@ public class Eship {
   void make() {
     //initialize and assign value to variable to control movement
   
-    t= (frameCount-create+xfactor)/150;
-    if((t > 50 && t<100) || t>150){
-    t-=2/150; //reverse motion after a certain time
-    }
+    t= (frameCount-create+xfactor)/250;
+//    if((t > 2 && t<4) || t>6){
+//    t-=2/150; //reverse motion after a certain time
+//    }
    
     //assign values for movement
     velz = amplitude*((sin(t))*(-sin(pow(t, 5))/248832 - 2*cos(4*t) + exp(cos(t)))+(cos(t))*(-5*pow(t, 4)*cos(pow(t, 5)/248832)/248832)+8*sin(4*t)-(sin(t)*exp(cos(t))))  ;
-    velx = amplitude*((cos(t))*(-sin(pow(t, 5))/248832 - 2*cos(4*t) + exp(cos(t)))+(sin(t))*(-5*pow(t, 4)*cos(pow(t, 5)/248832)/248832)+8*sin(4*t)-(sin(t)*exp(cos(t))))  ;
+    velx = amplitude*((cos(t))*(-sin(pow(t, 5))/248832 - 2*cos(4*t) + exp(cos(t)))+(sin(t))*(-5*pow(t, 4)*cos(pow(t, 5)/248832)/248832)+8*sin(4*t)-(sin(t)*exp(cos(t))))  ; //note that flight paths make ships move less after a long time, making them easier to hit
     vel.set(velx, 0, velz);
     vel.limit(22);
     loc.add(vel);

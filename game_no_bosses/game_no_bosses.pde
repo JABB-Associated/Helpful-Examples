@@ -107,29 +107,30 @@ void draw() {
   textAlign(LEFT, LEFT);
   // for testing
 
-//  if (keys[UP] && frameCount-f9>=90) {
-//    if (level<6) {
-//      level++;
-//      f9=frameCount;
-//    } else {
-//      level=1;
-//    }
-//  }
+  //  if (keys[UP] && frameCount-f9>=90) {
+  //    if (level<6) {
+  //      level++;
+  //      f9=frameCount;
+  //    } else {
+  //      level=1;
+  //    }
+  //  }
   //  //more testing
   //  if(wavetime && key=='t'){
   //    bosstime=true;
   //    wavetime=false;}
   if (level < 1) { //play intro music
-    IntroMusic.play();
 
-    if (!IntroMusic.isPlaying()) {
-      IntroMusic.pause();
-      IntroMusic.rewind(); //loop intro music
+    if (!IntroMusic.isPlaying()) { //loop intro music
+      IntroMusic.rewind(); 
+      IntroMusic.play();
     }
   }
+
   if (level >0) { //end intro music
     IntroMusic.pause();
   }
+
   if (level == -1) { //start screen
     //add start button
 
@@ -236,7 +237,7 @@ void draw() {
 
   if (level >0 && level <=3) {
     noCursor();
-    
+
     if (!DuelofFates.isPlaying()) {    //Loop Duel of Fates Soundtrack for level one to three
       DuelofFates.rewind();
       DuelofFates.play();
@@ -307,7 +308,7 @@ void draw() {
         }
       }
 
-//ship-missile detection loop
+      //ship-missile detection loop
       for (int k= missiles.size ()-1; k>=0; k--) {
         Missile mymiss = missiles.get(k);
         fill(0, 255, 0);
@@ -322,11 +323,11 @@ void draw() {
     for (int i=eships.size ()-1; i>=0; i--) {
       Eship myship=eships.get(i);
       myship.make();
-//if ship dies remove it
+      //if ship dies remove it
       if ( myship.dead) {
         eships.remove(myship);
       }
-//if ship goes beonda certain point reverse velocity
+      //if ship goes beonda certain point reverse velocity
       if (myship.loc.z>=6*height/(2*tan(PI/6)) ) {
         myship.vel.z=-abs(myship.vel.z);
       }

@@ -2,21 +2,23 @@ import ddf.minim.*;
 AudioPlayer DuelofFates;
 AudioPlayer IntroMusic;
 Minim minim;
-int x1;
-int credittime = 0;
-int y1[] = new int [20];
-StringList credits;
-boolean creditstart = false;
-float fc7=0;
-boolean fren = false;
+//note: all fc variables are timer variables
+//also note that make void was used to make objects
+int x1; //x of scrolling text
+int credittime = 0; //variable to start credits
+int y1[] = new int [20]; //array for controlling y-coordinates of text
+StringList credits; //contains credits
+boolean creditstart = false; 
+float fc7=0; //timer variable for level transition
+boolean fren = false; //variable used to test a single condition for level transition
 
 
 int health = 1000; //ship health
 //PShape deathstar; 
 //PShape Boss1;
-PShape Destroyer;
-PShape Tiebomber;
-PShape Tiefighter;
+PShape Destroyer; //Star Destroyer
+PShape Tiebomber; //Tie Bomber ship
+PShape Tiefighter; //Tiefighter
 //PImage cockpit;
 
 //Initialize for start button
@@ -28,34 +30,35 @@ ArrayList<Elaser> elasers = new ArrayList<Elaser>();
 ArrayList <Laser> lasers= new ArrayList<Laser>();
 ArrayList <Eship> eships= new ArrayList<Eship>();
 ArrayList <Missile> missiles = new ArrayList<Missile>();
-int missilecount=0;
+int missilecount=0; //number of missiles
 //float fc=0;
+//fcs are timers
 float fc1=-20;
 float fc2=-50;
 int score=0;
-boolean shipoff=false;
-int movex=0;
+//boolean shipoff=false;
+int movex=0; //move variables control movement of ship
 int movey=0;
 int movez=0;
-int rotatex;
-int rotatey;
+//int rotatex;
+//int rotatey;
 boolean keys[]= new boolean[255];
 Crosshairs ch= new Crosshairs();
 boolean addmiss=true; //checks for duplicate missile addition
 float zfire = ( tan(PI/6)) ;
 int level=-1;
-boolean makeships = true;
+boolean makeships = true; //tells whether to make ships
 float fc8 = 0;
 boolean restart = false;
 
-int pscore=0;
+int pscore=0; //for telling to skip levels
 // boolean reset = false; //tells to reset matrix in instruction screen
 float instructionscreen = 0; //times between instruction screen and scrolling text
 int x;
 int y [] = new int [7];
 int z [] = new int [7];
-StringList starwarstext;
-int f9 = 0;
+StringList starwarstext; //
+//int f9 = 0; 
 
 void setup() { 
   noCursor();
@@ -73,7 +76,7 @@ void setup() {
   x = width/2;
   for (int i=0; i<y.length; i++) {
     y[i] = 3*height/2 + 140*i;
-    z[i] = -10*i;
+    z[i] = -10*i; //initialize variables for scrolling text
   }
 }
 
@@ -104,14 +107,14 @@ void draw() {
   textAlign(LEFT, LEFT);
   // for testing
 
-  if (keys[UP] && frameCount-f9>=90) {
-    if (level<6) {
-      level++;
-      f9=frameCount;
-    } else {
-      level=1;
-    }
-  }
+//  if (keys[UP] && frameCount-f9>=90) {
+//    if (level<6) {
+//      level++;
+//      f9=frameCount;
+//    } else {
+//      level=1;
+//    }
+//  }
   //  //more testing
   //  if(wavetime && key=='t'){
   //    bosstime=true;
@@ -165,7 +168,7 @@ void draw() {
       Shimmer.remove(0);
     }
   }
-  if (level == 0 ) {
+  if (level == 0 ) { //if less than 1200 frames pass, stay on scrolling text
     if (frameCount-instructionscreen < 1200) {
 
       textSize(60);
@@ -190,7 +193,7 @@ void draw() {
         fren = true;
       }
       fill (0, 255, 255);
-      if (frameCount-fc7 < 2*frameRate) {
+      if (frameCount-fc7 < 2*frameRate) { //for 2 seconds, display first text
         text ("A long time ago in a galaxy far, far away....", x, height/6, -50);
       }
 
@@ -231,11 +234,11 @@ void draw() {
 
   if (level >0 && level <=3) {
     DuelofFates.play();
-    if (!DuelofFates.isPlaying()) {
-      DuelofFates.rewind();
-    }
+//    if (!DuelofFates.isPlaying()) {
+//      DuelofFates.rewind();
+//    }
     if (health > 150) {
-      fill(0, 0, 255);
+      fill(0, 0, 255); //health bar turns red on low health
     } else {
       fill(255, 0, 0);
     }
@@ -280,7 +283,7 @@ void draw() {
       pscore = score;
       movex = 0;
       movey = 0;
-      movez = 0;
+      movez = 0; //level up procedure; move goes to zero so ships spawn near you
     }
 
 
@@ -299,14 +302,14 @@ void draw() {
         }
       }
 
-
+//ship-missile detection loop
       for (int k= missiles.size ()-1; k>=0; k--) {
         Missile mymiss = missiles.get(k);
         fill(0, 255, 0);
 
         if (dist(mymiss.loc.x, mymiss.loc.y, mymiss.loc.z, myship.loc.x, myship.loc.y, myship.loc.z)<=myship.sz + mymiss.sz) {
           mymiss.hits(myship);
-          mymiss.exploding=true;
+          mymiss.exploding=true; //missiles explode if they hit a ship
         }
       }
     }
@@ -314,11 +317,11 @@ void draw() {
     for (int i=eships.size ()-1; i>=0; i--) {
       Eship myship=eships.get(i);
       myship.make();
-
+//if ship dies remove it
       if ( myship.dead) {
         eships.remove(myship);
       }
-
+//if ship goes beonda certain point reverse velocity
       if (myship.loc.z>=6*height/(2*tan(PI/6)) ) {
         myship.vel.z=-abs(myship.vel.z);
       }
@@ -326,21 +329,21 @@ void draw() {
       if (myship.loc.z<=-6*height/(2*tan(PI/6))) {
         myship.vel.z=abs(myship.vel.z);
       }
-      if (frameCount-myship.firingtimer > 60) {
+      if (frameCount-myship.firingtimer > 60) { //fire every 60 frames
         elasers.add( new Elaser(myship));
         myship.firingtimer = frameCount;
       }
     }
 
-    for ( int j=lasers.size ()-1; j>1; j--) {
+    for ( int j=lasers.size ()-1; j>1; j--) { //make my lasers
       Laser mylase=lasers.get(j);
       mylase.make();
 
-      if (frameCount-mylase.create>(mylase.framerater) || mylase.death) {
+      if (frameCount-mylase.create>(mylase.framerater) || mylase.death) { //if laser is on screen too long get rid of it
         lasers.remove(mylase);
       }
       stroke(255, 0, 0);
-      strokeWeight(1);
+      strokeWeight(1);//reset stroke for crosshairs
       ch.make();
     }
 
@@ -348,10 +351,10 @@ void draw() {
       Missile mymiss=missiles.get(k);
       mymiss.make();
 
-      if (frameCount-mymiss.fc>80 || mymiss.exploding==true) {
+      if (frameCount-mymiss.fc>80 || mymiss.exploding==true) { //after 80 frames if exploding explode
         mymiss.exploding();
 
-        if (frameCount-mymiss.fc>120) {
+        if (frameCount-mymiss.fc>120) { //missile dies after 120 frames
           missiles.remove(mymiss);
         }
       }
@@ -360,10 +363,10 @@ void draw() {
     for ( int i= elasers.size () - 1; i>=0; i--) {
       Elaser elase = elasers.get(i);
       elase.make();
-      if (dist(elase.loc.x, elase.loc.y, elase.loc.z, width/2-movex, height/2-movey, height/(2*tan(PI/6))-movez) < 50) {
+      if (dist(elase.loc.x, elase.loc.y, elase.loc.z, width/2-movex, height/2-movey, height/(2*tan(PI/6))-movez) < 50) { //elaser hits if it gets close enough to you
         elase.hits();
       }
-      if (frameCount-elase.created>5*frameRate) {
+      if (frameCount-elase.created>5*frameRate) { //remove lasers after 5 seconds
         elasers.remove(elase);
       }
     }
@@ -378,15 +381,15 @@ void draw() {
     if (START.size()==0) {
       START.add(new Start());
     }
-    Start mystart = START.get(1);
+    Start mystart = START.get(1); //if dying display death screen
     mystart.death();
   }
   if (level == 4) {
 
-    if (frameCount - credittime >=0 && START.size()==0) {
+    if (frameCount - credittime >=0 && START.size()==0) { // add start for credits
       START.add(new Start());
     }
-    if (!creditstart) {
+    if (!creditstart) { //display credits
       credittime = frameCount;
       credits = new StringList();
       textAlign(CENTER, CENTER);
@@ -413,11 +416,11 @@ void draw() {
       credits.append ("THE END");
 
       x1 = width/2;
-      for (int i=0; i<20; i++) {
+      for (int i=0; i<20; i++) { //space font along lines
         y1[i] = height + 60*i;
       }
 
-      creditstart = true;
+      creditstart = true; //only displays credits once
     }
     textAlign(CENTER, CENTER);
     //create the mouse effect
@@ -443,7 +446,7 @@ void draw() {
       }
     }
     fill (255, 255, 0);
-    for (int i=0; i<20; i++) {
+    for (int i=0; i<20; i++) { //size depends on line
 
       if (i==0) {
         fill (0, 255, 255);
@@ -470,11 +473,11 @@ void draw() {
         textSize (70);
       }
 
-      String line = credits.get(i);
+      String line = credits.get(i); //display credits
       text (line, x1, y1[i]);
-      y1[i] -= 2;
+      y1[i] -= 2; //scroll up
     }
-    if (frameCount - credittime>1200) {
+    if (frameCount - credittime>1200) { //after 1200 frames exit game from credits
       exit();
     }
   }
@@ -485,7 +488,7 @@ void draw() {
 void keyPressed() {
   if (level>0) {
     if (keyPressed) {
-      if ((key=='O' || key=='o') && frameCount-fc1>=10) {
+      if ((key=='O' || key=='o') && frameCount-fc1>=10) { //make lasers if o pressed
         //Blaster.rewind();
         //Blaster.play();
         lasers.add(new Laser(1));
@@ -495,7 +498,7 @@ void keyPressed() {
         fc1=frameCount;
       }
 
-      if ((key=='I' || key=='i') && frameCount-fc2>=50 && missilecount>=1) {
+      if ((key=='I' || key=='i') && frameCount-fc2>=50 && missilecount>=1) { //shoot with i, but obviously has to wait
         missiles.add(new Missile());
         fc2=frameCount;
         if (missilecount>0) {
@@ -503,11 +506,11 @@ void keyPressed() {
         }
       }
 
-      if (key!=CODED) {
+      if (key!=CODED) { //stops errors with keys boolean from unwanted type & register key input
         keys[key]=true;
       }
 
-      if (key==CODED) {
+      if (key==CODED) { //stop errors with keys boolean unwanted type & register key input
         keys[keyCode]=true;
       }
     }
@@ -528,47 +531,47 @@ void keyReleased() {
 
 void update() {
   if (level > 0) {
-    if ((keys['k'] || keys['K']) && zfire-tan(PI/6)<= 250) {
+    if ((keys['k'] || keys['K']) && zfire-tan(PI/6)<= 250) { //if k pressed scope in to a certain limit
       if (3*height/((2*frameRate)*zfire)*frameRate>500) {
         zfire*=1.0157;
-      } else {
+      } else { //makes transition smoother for scoping (not linear)
         zfire*=1.09;
       }
     }
-    if ((keys['P'] || keys['p']) && zfire-tan(PI/6) >=.004) {
+    if ((keys['P'] || keys['p']) && zfire-tan(PI/6) >=.004) { //if p pressed scope out to certain limit
       if (3*height/((2*frameRate)*zfire)*frameRate>500) {
         zfire/=1.0157;
-      } else {
+      } else {//makes transition smoother for scoping (not linear)
         zfire/=1.09;
       }
     }
 
-    if (keys['l'] || keys['L']) {
+    if (keys['l'] || keys['L']) { //l resets default scope
       zfire=tan(PI/6) ;
     }
 
 
-    if (keys['w'] || keys['W']) {
+    if (keys['w'] || keys['W']) { //w move up
       movey+=10;
     }
 
-    if (keys['s'] || keys['S']) {
+    if (keys['s'] || keys['S']) { // s moves down
       movey-=10;
     }
 
-    if (keys['d'] || keys['D']) {
+    if (keys['d'] || keys['D']) { //d moves right
       movex-=10;
     }
 
-    if (keys['a'] || keys['A']) {
+    if (keys['a'] || keys['A']) { //a moves left
       movex+=10;
     }
 
-    if (keys['z'] || keys['Z']) {
+    if (keys['z'] || keys['Z']) { //z moves in
       movez+=10;
     }
 
-    if (keys['x'] || keys['X']) {
+    if (keys['x'] || keys['X']) { //x moves out
       movez-=10;
     }
 

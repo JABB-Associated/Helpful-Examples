@@ -236,11 +236,11 @@ void draw() {
 
   if (level >0 && level <=3) {
     noCursor();
-    DuelofFates.play();
-
-//    if (!DuelofFates.isPlaying()) {
-//      DuelofFates.rewind();
-//    }
+    
+    if (!DuelofFates.isPlaying()) {    //Loop Duel of Fates Soundtrack for level one to three
+      DuelofFates.rewind();
+      DuelofFates.play();
+    }
 
     if (health > 150) {
       fill(0, 0, 255); //health bar turns red on low health

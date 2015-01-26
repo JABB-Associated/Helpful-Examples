@@ -1,72 +1,74 @@
-//initialize Start class
+//Initialize Start class
 class Start {
-  //initialize variable for size of the stars
+  //Initialize variable for size of the stars
   PVector loc;
   float sz;
 
-  //initialize variables for location and size of start button
+  //Initialize variables for location and size of start button
   int rectX, rectY, W, H;
 
-  //initialize arrays to store star locations
-  float[] starX = new float[(width*height)/20000];
+  //Initialize arrays to store star locations
+  float[] starX = new float[(width*height)/20000]; //Set number of stars proportional to the size of the screen
   float[] starY = new float[starX.length];
 
-  //initialize variables to make stars fade
+  //Initialize variables to make stars fade
   float transparency;
 
-  //initialize images
+  //Initialize images
   PImage title;
 
   Start () {
-    //set random location for the stars
+    //Set random location for the stars
     loc =  new PVector(random (0, width), random (0, height));
 
-    //set size of the stars
+    //Set size of the stars
     sz = 5;
 
-    //set size and position of the start button
+    //Set size and position of the start button
     W = 200;
     H = 75;
     rectX = width/2 - W/2;
     rectY = 2*height/3;
 
-    //load images displaying titles
+    //Load images displaying titles
     title = loadImage ("MergedTitleLQ.png");
     transparency = 0;
   }
 
   void display () {
-    //display white stars at location
+    //Display white stars at location
     fill (255);
-    if ((frameCount%35)==0) {
 
+    if ((frameCount%35)==0) {
+      //Set random location for stars
       for (int i = 0; i < starX.length; i++) {
         starX[i] = random(width);
         starY[i] = random(height);
       }
     }
-
+    //Increase transparency of stars
     for (int i = 0; i < starX.length; i++) {
       transparency += 4;
-
+      //Reset transparency
       if (transparency>100) {
         transparency = 0;
       }
-
+      //Make stars white and display
       fill(255, 255, 255, transparency);
       ellipse (starX[i], starY[i], sz, sz);
     }
   }
 
   void button () {
-    //set settings for text
+    //Set settings for text
     textAlign (CENTER, CENTER);
     textSize (50);
 
-    //change color of start button if moused over
+    //Change color of start button if moused over
     if (mouseX > rectX && mouseX < rectX + W && mouseY > rectY && mouseY < rectY + H) {
       fill (0, 255, 0);
 
+      //If the mouse is pressed over the button, proceed to level 0
       if (mousePressed) {
         level=0;
         instructionscreen=frameCount;
@@ -75,32 +77,32 @@ class Start {
       fill (255, 0, 0);
     }
 
-    //create rectangle for start button
+    //Create rectangle for start button
     rect (rectX, rectY, W, H);
     fill (0);
 
-    //display text for start button
+    //Display text for start button
     text ("START", width/2, 2*H/5 + rectY);
   }
 
   void title () {
-    //display images for titles
+    //Display images for titles
     imageMode(CENTER);
     image (title, width/2, height/2);
   }
 
   void death () {
+    //Set text settings
     textAlign (CENTER, CENTER);
     textSize (40);
 
     cursor(HAND);
 
-    //change color of start button if moused over
+    //Change color of start button if moused over
     if (mouseX > rectX && mouseX < rectX + W && mouseY > rectY && mouseY < rectY + H) {
       fill (0, 255, 0);
-
+      //If the mouse is pressed over the button, reset to level 1
       if (mousePressed) {
-
         level = 1;
         health = 1000;
         restart = false;
@@ -108,15 +110,15 @@ class Start {
     } else {
       fill (255, 0, 0);
     }
-
+    //Create button for rectangle
     rect (rectX, rectY, W, H);
+    
+    //Display text for restart button
     fill (0);
-
-    //display text for restart button
     text ("RESTART", width/2, 2*H/5 + rectY);
     fill (255, 255, 0);
     textSize (200);
-    text ("GAME OVER", width/2, height/5); //fun end game message
+    text ("BRUNO WINS", width/2, height/5); //Fun end game message
   }
 }
 

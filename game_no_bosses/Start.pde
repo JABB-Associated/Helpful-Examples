@@ -112,13 +112,13 @@ class Start {
     }
     //Create button for rectangle
     rect (rectX, rectY, W, H);
-    
+
     //Display text for restart button
     fill (0);
-    text ("RESTART", width/2, 2*H/5 + rectY);
+    text ("RESTART", width/2, 3*H/7 + rectY);
     fill (255, 255, 0);
-    textSize (200);
-    text ("BRUNO WINS", width/2, height/5); //Fun end game message
+    textSize (150);
+    text ("YOU LOSE!", width/2, height/5); //Fun end game message
   }
 }
 

@@ -18,15 +18,15 @@ class Missile {
     if (frameCount-fc<80) {
       loc.add(vel);
     }
-    
+
     translate(loc.x, loc.y, loc.z);
     fill(0, 255, 0 );
-    
+
     //change the color of the missle if it is exploding
     if (exploding) {
       fill(255, 0, 0);
     }
-    
+
     sphere(sz);
     translate(-1*loc.x, -1*loc.y, -1*loc.z);
   }

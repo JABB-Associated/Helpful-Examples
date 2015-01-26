@@ -4,10 +4,10 @@ class Elaser {
   float created;
   float aimx;
   float aimy;
-  float aimz; //these variables create a chance that the lasers miss
+  float aimz; //These variables create a chance that the lasers miss
 
   Elaser(Eship shipy) {
-    aimx = (random(-500, 500))/500;  //the bias factor is set. Notice that the chance of firing accurately is .5
+    aimx = (random(-500, 500))/500;  //The bias factor is set. Notice that the chance of firing accurately is .5
     aimy = (random(-500, 500))/500;
     aimz = (random(-500, 500))/500;
 

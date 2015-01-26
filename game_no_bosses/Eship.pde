@@ -1,7 +1,7 @@
-//initialize Eship class
+//Initialize Eship class
 public class Eship {
 
-  //intialize variables to control motion and size
+  //Intialize variables to control motion and size
   float velx, velz;
   PVector loc, vel;
   int amplitude=1000;
@@ -10,13 +10,13 @@ public class Eship {
   int sz;
   
 
-  //initialize variables to control status of ship (shooting, having a shield, alive or dead)
+  //Initialize variables to control status of ship (shooting, having a shield, alive or dead)
   boolean shooting = false;
   int shield=2;
   boolean dead=false;
   float firingtimer=random(60, 180) ;
  
-  //initialize variables to compensate for different center points in enemy ship files
+  //Initialize variables to compensate for different center points in enemy ship files
   float tbcompx=-50;
   float tbcompy=50; 
   float tbcompz=-10;
@@ -28,7 +28,7 @@ public class Eship {
 
     //xfactor=random(-TAU*500, TAU*500); //for circular
 
-    //assign values to control size, position, and motion of new ships
+    //Assign values to control size, position, and motion of new ships
     xfactor = random(1, 100);
     ypos= random(-200, height);
     int sz=0;
@@ -37,7 +37,7 @@ public class Eship {
     vel=new PVector(0, 0, 0);
     loc.set(random(-1000, 1000), random(-1000, 1000), random(-1000, 1000));
    
-    //control how shielded the enemy ships are based on level
+    //Control how shielded the enemy ships are based on level
     if ( level == 1) {
       shield = 2;
     }

@@ -5,6 +5,7 @@
 import ddf.minim.*;
 AudioPlayer DuelofFates; //Game Music
 AudioPlayer IntroMusic; //Intro Music
+AudioPlayer VictoryMusic; //Victory Music
 Minim minim;
 
 //////////////////////////////////////////////
@@ -104,6 +105,7 @@ void setup() {
   minim = new Minim (this);
   DuelofFates = minim.loadFile ("Duel of Fates.mp3", 512);
   IntroMusic = minim.loadFile ("IntroMusic.mp3", 5048);
+  VictoryMusic = minim.loadFile ("StarWarsVictoryEnding.mp3", 512);
 
   //Enemy Ships
   Tiefighter = loadShape ("Tiefighter.obj");
@@ -449,6 +451,8 @@ void draw() {
   }
 
   if (level == 4) {
+    
+    VictoryMusic.play();  //play victory music
 
     if (frameCount - credittime >= 0 && START.size () == 0) { // add start for credits
       START.add (new Start());

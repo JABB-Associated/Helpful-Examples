@@ -2,6 +2,7 @@ import ddf.minim.*;
 AudioPlayer DuelofFates;
 AudioPlayer IntroMusic;
 Minim minim;
+
 //note: all fc variables are timer variables
 //also note that make void was used to make objects
 int x1; //x of scrolling text
@@ -19,6 +20,9 @@ int health = 1000; //ship health
 PShape Destroyer; //Star Destroyer
 PShape Tiebomber; //Tie Bomber ship
 PShape Tiefighter; //Tiefighter
+
+PImage Ewok; //Ewok
+
 //PImage cockpit;
 
 //Initialize for start button
@@ -58,7 +62,7 @@ int x;
 int y [] = new int [7];
 int z [] = new int [7];
 StringList starwarstext; //
-//int f9 = 0; 
+int f9 = 0; 
 
 void setup() { 
   noCursor();
@@ -69,6 +73,8 @@ void setup() {
   Tiefighter = loadShape("Tiefighter.obj");
   Tiebomber = loadShape("Tie Super.obj");
   Destroyer = loadShape("Imperial Class Destroyer.obj");
+
+  Ewok = loadImage ("Ewok.png");
 
   //cockpit = loadImage("maxresdefault.png");
   size(displayWidth, displayHeight, P3D);
@@ -107,14 +113,14 @@ void draw() {
   textAlign(LEFT, LEFT);
   // for testing
 
-  //  if (keys[UP] && frameCount-f9>=90) {
-  //    if (level<6) {
-  //      level++;
-  //      f9=frameCount;
-  //    } else {
-  //      level=1;
-  //    }
-  //  }
+  if (keys[UP] && frameCount-f9>=90) {
+    if (level<6) {
+      level=4;
+      f9=frameCount;
+    } else {
+      level=1;
+    }
+  }
   //  //more testing
   //  if(wavetime && key=='t'){
   //    bosstime=true;
@@ -420,7 +426,6 @@ void draw() {
       credits.append ("Pavan and Eric - Custodial Staff");
       credits.append ("John Williams - Music - Used Without Permission");
       credits.append (" ");
-
       credits.append ("THE END");
 
       x1 = width/2;
@@ -485,7 +490,11 @@ void draw() {
       text (line, x1, y1[i]);
       y1[i] -= 2; //scroll up
     }
-    if (frameCount - credittime>1200) { //after 1200 frames exit game from credits
+    if (frameCount - credittime>1200) { //Display Ultimate Goal
+      text ("You Saved the Ewok King!", width/2, height/5);
+      image (Ewok, width/2, height/2);
+    }
+    if (frameCount - credittime>1500) { //After 1500 frames exit game from credits
       exit();
     }
   }

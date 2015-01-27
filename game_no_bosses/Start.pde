@@ -8,8 +8,8 @@ class Start {
   int rectX, rectY, W, H;
 
   //Initialize arrays to store star locations
-  float[] starX = new float[(width*height)/20000]; //Set number of stars proportional to the size of the screen
-  float[] starY = new float[starX.length];
+  float[] starX = new float [(width*height)/20000]; //Set number of stars proportional to the size of the screen
+  float[] starY = new float [starX.length];
 
   //Initialize variables to make stars fade
   float transparency;
@@ -19,7 +19,7 @@ class Start {
 
   Start () {
     //Set random location for the stars
-    loc =  new PVector(random (0, width), random (0, height));
+    loc =  new PVector (random (0, width), random (0, height));
 
     //Set size of the stars
     sz = 5;
@@ -39,23 +39,23 @@ class Start {
     //Display white stars at location
     fill (255);
 
-    if ((frameCount%35)==0) {
+    if ((frameCount%35) == 0) {
       //Set random location for stars
       for (int i = 0; i < starX.length; i++) {
-        starX[i] = random(width);
-        starY[i] = random(height);
+        starX [i] = random (width);
+        starY [i] = random (height);
       }
     }
     //Increase transparency of stars
     for (int i = 0; i < starX.length; i++) {
       transparency += 4;
       //Reset transparency
-      if (transparency>100) {
+      if (transparency > 100) {
         transparency = 0;
       }
       //Make stars white and display
-      fill(255, 255, 255, transparency);
-      ellipse (starX[i], starY[i], sz, sz);
+      fill (255, 255, 255, transparency);
+      ellipse (starX [i], starY [i], sz, sz);
     }
   }
 
@@ -70,8 +70,8 @@ class Start {
 
       //If the mouse is pressed over the button, proceed to level 0
       if (mousePressed) {
-        level=0;
-        instructionscreen=frameCount;
+        level = 0;
+        instructionscreen = frameCount;
       }
     } else {
       fill (255, 0, 0);
@@ -87,7 +87,7 @@ class Start {
 
   void title () {
     //Display images for titles
-    imageMode(CENTER);
+    imageMode (CENTER);
     image (title, width/2, height/2);
   }
 
@@ -96,7 +96,7 @@ class Start {
     textAlign (CENTER, CENTER);
     textSize (40);
 
-    cursor(HAND);
+    cursor (HAND);
 
     //Change color of start button if moused over
     if (mouseX > rectX && mouseX < rectX + W && mouseY > rectY && mouseY < rectY + H) {

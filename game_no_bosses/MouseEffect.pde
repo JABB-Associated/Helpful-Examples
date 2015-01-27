@@ -9,8 +9,8 @@ class MouseEffect {
 
   MouseEffect() {
     //Give the particle a position at the mouse and a random direction to move
-    loc = new PVector(mouseX, mouseY);
-    vel = new PVector(random(-1, 1), random(-1, 1));
+    loc = new PVector (mouseX, mouseY);
+    vel = new PVector (random(-1, 1), random(-1, 1));
     sz = 4;
 
     //Capture the time the particle was created
@@ -19,18 +19,18 @@ class MouseEffect {
 
   void display() {
     //Create the particle
-    fill(255, 199, 103);
-    ellipse(loc.x, loc.y, sz, sz);
+    fill (255, 199, 103);
+    ellipse (loc.x, loc.y, sz, sz);
   }
 
-  void move() {
+  void move () {
     //Move the particle
-    loc.add(vel);
+    loc.add (vel);
   }
 
   boolean disappear() {
     //If time has passed since the creation of the particle, return true for removal
-    if ((frameCount-timecapture)>10) {
+    if ((frameCount - timecapture) > 10) {
       return true;
     } else {
       return false;

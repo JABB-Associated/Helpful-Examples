@@ -115,9 +115,10 @@ void setup() {
   size (displayWidth, displayHeight, P3D);
   START.add (new Start());
   x = width/2;
+  
   for (int i = 0; i < y.length; i++) {
-    y[i] = 3*height/2 + 140*i;
-    z[i] = -10*i; //initialize variables for scrolling text
+    y [i] = 3*height/2 + 140*i;
+    z [i] = -10*i; //initialize variables for scrolling text
   }
 }
 
@@ -189,6 +190,7 @@ void draw() {
         START.remove (i);
       }
     }  
+    
     //create the mouse effect
     for (int i = 0; i < 15; i++) {
       Shimmer.add (new MouseEffect ());
@@ -203,23 +205,24 @@ void draw() {
       }
     }
   }
+  
   //remove shimmers and start screen after intro screens
   if (level > 0 && level <= 3) { 
+    
     while (START.size () > 0 && level > -1) {
       START.remove (0);
     } 
+    
     while (Shimmer.size () > 0 && level > -1) {
       Shimmer.remove (0);
     }
   }
+  
   if (level == 0 ) { //if less than 1200 frames pass, stay on scrolling text
+    
     if (frameCount - instructionscreen < 1200) {
-
       textSize (60);
       textAlign (CENTER, CENTER);
-
-
-
 
       starwarstext = new StringList();
 
@@ -230,6 +233,7 @@ void draw() {
       starwarstext.append ("Bruyesia. As you fly your ship through the galaxy, you must defeat");
       starwarstext.append ("your enemies as you close ever nearer to your ultimate objective.");
       starwarstext.append ("Good luck, young Wookiee, and May the Force be with you!");
+     
       background (0);
 
       if (!fren) { //this boolean fren makes it so that fc7 is only updated once; fc7 serves as a timer
@@ -237,6 +241,7 @@ void draw() {
         fren = true;
       }
       fill (0, 255, 255);
+      
       if (frameCount - fc7 < 2*frameRate) { //for 2 seconds, display first text
         text ("A long time ago in a galaxy far, far away....", x, height/6, -50);
       }
@@ -245,9 +250,11 @@ void draw() {
       //pushMatrix();
 
       fill (255, 255, 0);
+      
       for (int i = starwarstext.size () -1; i >=0; i--) {
         String mytext = starwarstext.get (i);
         text (mytext, width/2, y[i], z[i]);
+       
         if (y[0] > -2500) { //makes text scroll up the screen
           y[i] -= 3;
           z[i] -= 1.5;
@@ -256,7 +263,6 @@ void draw() {
           z[i] -= 15;
         }
       }
-
       //popMatrix();
     } else {
       //
@@ -269,12 +275,12 @@ void draw() {
       textAlign (CENTER, CENTER);
       //display instructions
       text ("Destroy all enemies in a wave to advance to the next one. \nDefeat all three waves to win!\n Enemies will fire at you, lowering your blue health bar at the top left. \nThe top right represents the number of missiles available.\n \nMove in 3-D with 'WASD' and 'ZX' \nPress 'O' to fire lasers \nPress 'I' to fire missiles \nPress 'K' to scope in \nPress 'P' to scope out \nPress 'L' to go back to default scope. \n \nClick anywhere to continue.", width/2, height/2);
+      
       if (mousePressed && frameCount - instructionscreen > 1200) { //if you're on instructions and mouse is pressed go to level 1
         level = 1;
       }
     }
   }
-
 
   if (level > 0 && level <= 3) {
     noCursor ();
@@ -289,6 +295,7 @@ void draw() {
     } else {
       fill (255, 0, 0);
     }
+    
     rect (50, 120, 20, -health/10); //health bar
     fill (0, 255, 0);
     rect (width-120, 120, 20, -20*(score%5)); //shows how close to getting missiles you are
@@ -301,10 +308,10 @@ void draw() {
     text (health, 40, 15);
     textSize (20);
 
-
-    text ("Range:" + -1*round (-3*height/( (2*frameRate) *zfire)*frameRate) + "meters", width - 225, height/2);
+    text ("Range:" + -1*round (-3*height/ ((2*frameRate) *zfire)*frameRate) + "meters", width - 225, height/2);
     textSize (30);
     //image(cockpit, 0,0);
+    
     if (score%5 == 0 && score!= 0 && addmiss == false) { //awards you with a missile if this is your first time reaching that multiple of 5 (score)
       missilecount += 2;
       addmiss = true; //addmiss is there to prevent multiple additions of missiles per enemy
@@ -316,13 +323,13 @@ void draw() {
     //    rotateX(rotatey);
     //    rotateY(rotatex);
 
-
     if (// (frameCount - fc > 20 || shipoff) && eships.size () <= 15) {
-    eships.size ()+ score-pscore <= 14 && makeships == true) {
+    eships.size () + score-pscore <= 14 && makeships == true) {
       eships.add (new Eship());
       // fc=frameCount;
       //shipoff=false;
     }
+    
     if (eships.size() == 0 && level < 4 && frameCount - fc8 > 100) {
       level++;
       makeships = true;
@@ -332,10 +339,6 @@ void draw() {
       movey = 0;
       movez = 0; //level up procedure; move goes to zero so ships spawn near you
     }
-
-
-
-
 
     //ship-laser detection loop
     for (int i = eships.size () - 1; i >= 0; i--) {
@@ -364,10 +367,12 @@ void draw() {
     for (int i = eships.size () - 1; i>=0; i--) {
       Eship myship = eships.get (i);
       myship.make ();
+      
       //if ship dies remove it
       if (myship.dead) {
         eships.remove (myship);
       }
+     
       //if ship goes beonda certain point reverse velocity
       if (myship.loc.z >= 6*height/(2*tan(PI/6)) ) {
         myship.vel.z = -abs(myship.vel.z);
@@ -376,6 +381,7 @@ void draw() {
       if (myship.loc.z <= -6*height/(2*tan(PI/6))) {
         myship.vel.z = abs(myship.vel.z);
       }
+      
       if (frameCount - myship.firingtimer > 60) { //fire every 60 frames
         elasers.add (new Elaser(myship));
         myship.firingtimer = frameCount;
@@ -389,6 +395,7 @@ void draw() {
       if (frameCount - mylase.create > (mylase.framerater) || mylase.death) { //if laser is on screen too long get rid of it
         lasers.remove (mylase);
       }
+      
       stroke (255, 0, 0);
       strokeWeight (1);//reset stroke for crosshairs
       ch.make ();
@@ -410,21 +417,27 @@ void draw() {
     for ( int i = elasers.size () - 1; i >= 0; i--) {
       Elaser elase = elasers.get (i);
       elase.make ();
+     
       if (dist (elase.loc.x, elase.loc.y, elase.loc.z, width/2 - movex, height/2 - movey, height/(2*tan(PI/6))- movez) < 50) { //elaser hits if it gets close enough to you
         elase.hits ();
       }
+      
       if (frameCount - elase.created > 5*frameRate) { //remove lasers after 5 seconds
         elasers.remove (elase);
       }
     }
+    
     stroke (255, 0, 0);
     strokeWeight (1);
     ch.make ();
+   
     if (health <= 0) {
       level = 5;
     }
   }
+  
   if (level == 5) {
+    
     if (START.size ()== 0) {
       START.add (new Start());
     }
@@ -433,15 +446,18 @@ void draw() {
 
     mystart.death ();
   }
+  
   if (level == 4) {
 
-    if (frameCount - credittime >=0 && START.size () == 0) { // add start for credits
+    if (frameCount - credittime >= 0 && START.size () == 0) { // add start for credits
       START.add (new Start());
     }
+    
     if (!creditstart) { //display credits
       credittime = frameCount;
       credits = new StringList ();
       textAlign (CENTER, CENTER);
+      
       credits.append ("Credits");
       credits.append (" ");
       credits.append ("Josh Bochner - Project Manager");
@@ -464,17 +480,21 @@ void draw() {
       credits.append ("THE END");
 
       x1 = width/2;
+      
       for (int i = 0; i < 20; i++) { //space font along lines
         y1[i] = height + 60*i;
       }
 
       creditstart = true; //only displays credits once
     }
+    
     textAlign (CENTER, CENTER);
+    
     //create the mouse effect
     for (int i = 0; i < 15; i++) {
       Shimmer.add (new MouseEffect ());
     }
+    
     for (int i = 0; i < Shimmer.size (); i++) {
       MouseEffect sparkles = Shimmer.get (i);
       sparkles.display ();
@@ -484,16 +504,20 @@ void draw() {
         Shimmer.remove (i);
       }
     }
+    
     //create start button, title, and background stars
     for (int i = 0; i < START.size (); i++) { 
       Start alpha = START.get (i); 
       alpha.display ();
+      
       //remove stars (this causes the blinking)
       if (START.size () > 50) {
         START.remove (i);
       }
     }
+    
     fill (255, 255, 0);
+    
     for (int i = 0; i < 20; i++) { //size depends on line
 
       if (i== 0) {
@@ -525,10 +549,12 @@ void draw() {
       text (line, x1, y1[i]);
       y1[i] -= 2; //scroll up
     }
+    
     if (frameCount - credittime > 1200) { //Display Ultimate Goal
       text ("You Saved the Ewok King!", width/2, height/5);
       image (Ewok, width/2, height/2);
     }
+    
     if (frameCount - credittime>1500) { //After 1500 frames exit game from credits
       exit();
     }
@@ -539,7 +565,9 @@ void draw() {
 
 void keyPressed() {
   if (level > 0) {
+    
     if (keyPressed) {
+      
       if ((key == 'O' || key== 'o') && frameCount - fc1 >= 10) { //make lasers if o pressed
         //Blaster.rewind ();
         //Blaster.play ();
@@ -553,6 +581,7 @@ void keyPressed() {
       if ((key == 'I' || key == 'i') && frameCount - fc2 >= 50 && missilecount >= 1) { //shoot with i, but obviously has to wait
         missiles.add (new Missile());
         fc2 = frameCount;
+        
         if (missilecount > 0) {
           missilecount--;
         }
@@ -571,6 +600,7 @@ void keyPressed() {
 
 void keyReleased () {
   if (level > 0) {
+    
     if (key!= CODED) {
       keys [key] =false;
     }
@@ -583,14 +613,18 @@ void keyReleased () {
 
 void update () {
   if (level > 0) {
+    
     if ((keys ['k'] || keys ['K']) && zfire - tan (PI/6) <= 250) { //if k pressed scope in to a certain limit
+      
       if (3*height/ ((2*frameRate)*zfire)*frameRate > 500) {
         zfire *= 1.0157;
       } else { //makes transition smoother for scoping (not linear)
         zfire *= 1.09;
       }
     }
+    
     if ((keys ['P'] || keys ['p']) && zfire - tan (PI/6) >= .004) { //if p pressed scope out to certain limit
+      
       if (3*height/ ((2*frameRate)*zfire)*frameRate > 500) {
         zfire /= 1.0157;
       } else {//makes transition smoother for scoping (not linear)
@@ -601,7 +635,6 @@ void update () {
     if (keys ['l'] || keys ['L']) { //l resets default scope
       zfire = tan (PI/6) ;
     }
-
 
     if (keys ['w'] || keys ['W']) { //w move up
       movey += 10;

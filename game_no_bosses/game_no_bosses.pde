@@ -14,7 +14,7 @@ Minim minim;
 //Credits Variables
 int x1; //x of scrolling text
 int credittime = 0; //Timer during Credits
-int y1[] = new int [20]; //Array for controlling y-coordinates of credits
+int y1 [] = new int [20]; //Array for controlling y-coordinates of credits
 StringList credits; //Contains credits text
 boolean creditstart = false; //Boolean to Start Credits
 float fc7 = 0; //Timer variable for level transition
@@ -155,7 +155,7 @@ void draw() {
   //  } else {
    //   level = 1;
   //  }
-  }
+//  }
   //  //more testing
   //  if(wavetime && key == 't'){
   //    bosstime = true;
@@ -305,7 +305,7 @@ void draw() {
     text ("Range:" + -1*round (-3*height/( (2*frameRate) *zfire)*frameRate) + "meters", width - 225, height/2);
     textSize (30);
     //image(cockpit, 0,0);
-    if (score%5 == 0 && score! = 0 && addmiss == false) { //awards you with a missile if this is your first time reaching that multiple of 5 (score)
+    if (score%5 == 0 && score!= 0 && addmiss == false) { //awards you with a missile if this is your first time reaching that multiple of 5 (score)
       missilecount += 2;
       addmiss = true; //addmiss is there to prevent multiple additions of missiles per enemy
     }
@@ -558,7 +558,7 @@ void keyPressed() {
         }
       }
 
-      if (key! = CODED) { //stops errors with keys boolean from unwanted type & register key input
+      if (key!= CODED) { //stops errors with keys boolean from unwanted type & register key input
         keys [key] = true;
       }
 
@@ -571,7 +571,7 @@ void keyPressed() {
 
 void keyReleased () {
   if (level > 0) {
-    if (key! = CODED) {
+    if (key!= CODED) {
       keys [key] =false;
     }
 

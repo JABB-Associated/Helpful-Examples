@@ -13,7 +13,7 @@ class Laser {
 
   Laser(int lasernum) {
     //Assign value to variable to compensate for lag
-    framerater=frameRate;
+    framerater=frameRate; //note that this is an approximation for lag
 
     //CREATE AND MOVE LASERS FROM FOUR CORNERS
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

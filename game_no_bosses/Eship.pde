@@ -5,16 +5,16 @@ public class Eship {
   float velx, velz;
   PVector loc, vel;
   int amplitude=1000;
-  float ypos;
+  float ypos; //ypos is used because the ships stay at a fixed height, but move in the other two dimensions
   float xfactor;
-  int sz;
+  int sz; //note that this is shield size
 
 
   //Initialize variables to control status of ship (shooting, having a shield, alive or dead)
   boolean shooting = false;
   int shield=2;
-  boolean dead=false;
-  float firingtimer=random(60, 180) ;
+  boolean dead=false; 
+  float firingtimer=random(60, 180) ; //note that what these numbers are specifically isn't important, but this range works
 
   //Initialize variables to compensate for different center points in enemy ship files
   float tbcompx=-50;
@@ -64,10 +64,11 @@ public class Eship {
     //    }
 
     //assign values for movement
+    //IMPORTANT NOTE: SHIPS MOVE ACCORDING TO PARAMETRIC EQUATIONS BASED ON TIME. SHIPS WILL SLOW AFTER SOME TIME TO FACILITATE GAMEPLAY.
     velz = amplitude*((sin(t))*(-sin(pow(t, 5))/248832 - 2*cos(4*t) + exp(cos(t)))+(cos(t))*(-5*pow(t, 4)*cos(pow(t, 5)/248832)/248832)+8*sin(4*t)-(sin(t)*exp(cos(t))))  ;
     velx = amplitude*((cos(t))*(-sin(pow(t, 5))/248832 - 2*cos(4*t) + exp(cos(t)))+(sin(t))*(-5*pow(t, 4)*cos(pow(t, 5)/248832)/248832)+8*sin(4*t)-(sin(t)*exp(cos(t))))  ; //note that flight paths make ships move less after a long time, making them easier to hit
     vel.set(velx, 0, velz);
-    vel.limit(22);
+    vel.limit(22); //would be annoying for them to be going off screen
     loc.add(vel);
 
     //loc.set(width/2+width/2*sin((frameCount+xfactor)*TAU/360), ypos, -300*height/(120*tan(PI/6))*cos((frameCount+xfactor)*TAU/360)); //circular path
@@ -84,7 +85,7 @@ public class Eship {
     if (level==1) {
       amplitude=1000;
       sz=90;
-      scale(10, 10, 10);
+      scale(10, 10, 10); 
       shape(Tiefighter);
       scale(.1, .1, .1);
     }
@@ -95,13 +96,13 @@ public class Eship {
       scale(1/.7, 1/.7, 1/.7);
       amplitude=1000;
       sz=90;
-      translate(tbcompx, tbcompy, tbcompz);
+      translate(tbcompx, tbcompy, tbcompz); //note that tiebomber is the only one with an odd center point
     }
 
     if (level==3) {
       amplitude=5000;
       scale(5, 5, 5);
-      shape(Destroyer);
+      shape(Destroyer); 
       sz=450;
       scale(.2, .2, .2);
     }
